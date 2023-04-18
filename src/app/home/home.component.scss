@@ -1,0 +1,58 @@
+.hero-section {
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+section{
+    margin-bottom: 2.4rem;
+}
+.section-title {
+  margin-bottom: 1.6rem;
+}
+.container {
+  max-width: 1000px;
+}
+.review-card {
+  padding: 1.6rem;
+  margin-bottom: 1rem;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  .card-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    .author-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 0.8rem;
+      img {
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .author-name {
+      margin-right: 1rem;
+    }
+  }
+  .card-body {
+    display: flex;
+    gap: 2rem;
+    .card-body__title {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .card-bottom.tags{
+    display: flex;
+    gap: 10px;
+    .tag{
+        background-color: rgba(242, 242, 242, 1);
+        padding: 2px 8px;
+        font-size: 13px;
+        line-height:20px;
+        font-weight: 400;
+        border-radius: 100px;
+        
+    }
+  }
+}
