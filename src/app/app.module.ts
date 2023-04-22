@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { ReviewComponent } from './review/review.component';
+import { SwiperModule } from 'swiper/angular';
 import { SwiperComponent } from './shared/swiper/swiper.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,11 +17,9 @@ import { SwiperComponent } from './shared/swiper/swiper.component';
     ReviewComponent,
     SwiperComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule,SwiperModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
+

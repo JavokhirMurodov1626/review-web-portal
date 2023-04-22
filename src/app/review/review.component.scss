@@ -1,3 +1,134 @@
-.container{
-    max-width: 1000px;
+.container {
+  max-width: 728px;
+  padding: 2rem 0;
 }
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 30px;
+  .author-image {
+    width: 60px;
+    height: 60px;
+    img {
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+  .created-time {
+    font-size: 12px;
+    color: rgba(117, 117, 117, 1);
+  }
+  .review-group {
+    margin-left: auto;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+      rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    padding: 4px 16px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+    border-radius: 100px;
+  }
+}
+
+.review-title {
+  margin-bottom: 0.8rem;
+}
+.product-name {
+  margin-bottom: 0.8rem;
+}
+.product-name {
+  color: rgba(72, 164, 238, 0.938);
+}
+.product-content {
+  margin: 30px 0;
+}
+.review-rating-input {
+  margin-bottom: 15px;
+}
+.review-comment-box {
+  display: flex;
+  padding: 0 30px;
+  margin-bottom: 40px;
+  .like-btn-wrap {
+    margin-right: 10px;
+    cursor: pointer;
+    &.active{
+        svg{
+            fill: red;
+            path{
+                stroke: red;
+            }
+        }
+    }
+  }
+ 
+  .comment-input {
+    flex: 1;
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.rating-list {
+  li {
+    font-size: 24px;
+    float: right;
+    color: #ddd;
+    padding: 10px 5px;
+    cursor: pointer;
+    &:hover {
+      color: #ffd700;
+      ~ {
+        li {
+          color: #ffd700;
+        }
+      }
+    }
+  }
+  li.selected {
+    color: #ffd700;
+  }
+  display: inline-block;
+  list-style: none;
+}
+
+.send-comment-btn {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.comment {
+    margin-bottom: 30px;
+  .comment-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .comment-head__left {
+      display: flex;
+      gap: 0.8rem;
+      .user-image-wrap {
+        width: 32px;
+        height: 32px;
+        img {
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .user-name {
+        font-weight: 500;
+      }
+    }
+    .comment-create-time {
+      color: rgb(152, 152, 152);
+      font-size: 14px;
+    }
+  }
+  .comment-body {
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+      rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  }
+}
+

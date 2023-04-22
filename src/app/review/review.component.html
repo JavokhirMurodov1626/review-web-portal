@@ -1,3 +1,125 @@
 <div class="container">
-    
+    <div class="review-top">
+        <div class="author-image">
+            <img src="assets/images/profile-image.jpg" alt="">
+        </div>
+        <div class="review-top__right">
+            <p class="author-name">Murodov Javohir</p>
+            <p class="created-time">Feb 9</p>
+        </div>
+
+        <div class="review-group">
+            <p>Book</p>
+        </div>
+    </div>
+    <h1 class="review-title">Angular Interview Questions</h1>
+    <h5 class="product-name">Deep work</h5>
+    <app-swiper></app-swiper>
+    <div class="product-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda dicta expedita temporibus quos similique
+            doloremque pariatur consequuntur laudantium est sed ullam animi mollitia, quia at. Perspiciatis excepturi
+            hic, eum sapiente tenetur repellendus neque voluptatibus quam soluta pariatur asperiores repellat et?
+            Pariatur illum maxime amet cum odit hic id animi doloribus nam sit autem molestiae in laboriosam similique,
+            ipsum provident maiores, nisi eius error atque tempora deserunt! Optio perferendis, laborum eligendi non est
+            fugit atque soluta sequi incidunt excepturi esse voluptatibus consequatur placeat ex aspernatur accusantium.
+            Hic sunt recusandae optio blanditiis totam temporibus veritatis consequuntur adipisci aperiam labore. Odit,
+            magnam adipisci.</p>
+    </div>
+
+    <hr>
+
+    <div class="review-rating-input">
+        <h3 class="text-center">How is your experience?</h3>
+        <div class="row">
+            <div class="col-sm-12 d-flex justify-content-center">
+                <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index"
+                    style="display: inline-block">
+                    <li (click)="countStar(star)" id="{{'starId'+i}}" [ngClass]="{'selected': (star <= selectedValue)}"
+                        (mouseover)="addClass(star)" (mouseout)="removeClass(star)"> ★
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-comment-box">
+        <div [ngClass]="isLiked?'active':''" class="like-btn-wrap" (click)="likeReview()">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16.0015 27C16.0015 27 3.50146 20 3.50146 11.5C3.50172 9.99768 4.02228 8.5418 4.97465 7.3799C5.92701 6.21801 7.25239 5.42181 8.72545 5.12669C10.1985 4.83156 11.7283 5.05572 13.0548 5.76105C14.3812 6.46638 15.4225 7.60935 16.0015 8.99563L16.0015 8.99565C16.5804 7.60936 17.6217 6.46639 18.9481 5.76106C20.2746 5.05572 21.8044 4.83156 23.2775 5.12669C24.7505 5.42181 26.0759 6.21801 27.0283 7.3799C27.9806 8.5418 28.5012 9.99768 28.5015 11.5C28.5015 20 16.0015 27 16.0015 27Z"
+                    stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+
+        <div class="comment-input">
+            <input type="text" class="form-control" placeholder="Comment here ...">
+        </div>
+        <div class="send-comment-btn">
+            <img src="assets/images/PaperPlaneRight.svg" alt="">
+        </div>
+    </div>
+
+    <div class="comments-list">
+        <div class="comment">
+            <div class="comment-head">
+                <div class="comment-head__left">
+                    <div class="user-image-wrap">
+                        <img src="assets/images/profile-image.jpg" alt="">
+                    </div>
+                    <p class="user-name">Murodov Javohir</p>
+                </div>
+                <div class="comment-head__right">
+                    <p class="comment-create-time">
+                        2 days ago
+                    </p>
+                </div>
+            </div>
+            <div class="comment-body">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
+                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
+                voluptas!
+            </div>
+        </div>
+        <div class="comment">
+            <div class="comment-head">
+                <div class="comment-head__left">
+                    <div class="user-image-wrap">
+                        <img src="assets/images/profile-image.jpg" alt="">
+                    </div>
+                    <p class="user-name">Murodov Javohir</p>
+                </div>
+                <div class="comment-head__right">
+                    <p class="comment-create-time">
+                        2 days ago
+                    </p>
+                </div>
+            </div>
+            <div class="comment-body">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
+                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
+                voluptas!
+            </div>
+        </div>
+        <div class="comment">
+            <div class="comment-head">
+                <div class="comment-head__left">
+                    <div class="user-image-wrap">
+                        <img src="assets/images/profile-image.jpg" alt="">
+                    </div>
+                    <p class="user-name">Murodov Javohir</p>
+                </div>
+                <div class="comment-head__right">
+                    <p class="comment-create-time">
+                        2 days ago
+                    </p>
+                </div>
+            </div>
+            <div class="comment-body">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
+                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
+                voluptas!
+            </div>
+        </div>
+    </div>
+
 </div>
