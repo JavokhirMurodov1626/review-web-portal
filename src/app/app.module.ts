@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ReviewComponent } from './review/review.component';
 import { SwiperModule } from 'swiper/angular';
 import { SwiperComponent } from './shared/swiper/swiper.component';
+import { AccountComponent } from './account/account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +16,8 @@ import { SwiperComponent } from './shared/swiper/swiper.component';
     NavbarComponent,
     LoginComponent,
     ReviewComponent,
-    SwiperComponent
+    SwiperComponent,
+    AccountComponent
   ],
   imports: [BrowserModule, AppRoutingModule,SwiperModule],
   providers: [],

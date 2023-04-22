@@ -1,3 +1,15 @@
-.navbar{
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+.navbar {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+.user-account-icon {
+    margin-left: 0.8rem;
+  width: 40px;
+  height: 40px;
+  background-color: orange;
+  border-radius: 50%;
+  img{
+    height: 100%;
+    border-radius: 50%;
+  }
 }
