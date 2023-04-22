@@ -1,0 +1,27 @@
+.account-page {
+  background-color: #f9fbfc;
+  height: 100vh;
+}
+.toolbar {
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+.table {
+  padding: 15px !important;
+  background-color: #fff;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+.sort-box{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.sort-select{
+    max-width: max-content;
+}
+.review-create-btn{
+    margin-left: auto;
+}

@@ -9,6 +9,7 @@ import { ReviewComponent } from './review/review.component';
 import { SwiperModule } from 'swiper/angular';
 import { SwiperComponent } from './shared/swiper/swiper.component';
 import { AccountComponent } from './account/account.component';
+import { CreateReviewComponent } from './create-review/create-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { AccountComponent } from './account/account.component';
     LoginComponent,
     ReviewComponent,
     SwiperComponent,
-    AccountComponent
+    AccountComponent,
+    CreateReviewComponent
   ],
   imports: [BrowserModule, AppRoutingModule,SwiperModule],
   providers: [],
