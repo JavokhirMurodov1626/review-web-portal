@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -10,6 +11,8 @@ import { SwiperModule } from 'swiper/angular';
 import { SwiperComponent } from './shared/swiper/swiper.component';
 import { AccountComponent } from './account/account.component';
 import { CreateReviewComponent } from './create-review/create-review.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDirective } from './create-review/drag.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,11 +22,17 @@ import { CreateReviewComponent } from './create-review/create-review.component';
     ReviewComponent,
     SwiperComponent,
     AccountComponent,
-    CreateReviewComponent
+    CreateReviewComponent,
+    DragDirective,
   ],
-  imports: [BrowserModule, AppRoutingModule,SwiperModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SwiperModule,
+    BrowserAnimationsModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

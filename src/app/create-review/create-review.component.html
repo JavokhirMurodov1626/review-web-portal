@@ -1,1 +1,36 @@
-<p>create-review works!</p>
+<div class="container-fluid">
+    <div class="container p-2 d-flex align-items-center flex-column">
+        <h2 class="text-center text-primary mb-3">Your New Review</h2>
+        <form action="" class="col-6">
+            <label for="review-title" class="mb-2 fw-bold">Review Title</label>
+            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter your review title">
+
+            <label for="review-title" class="mb-2 fw-bold">Product Name</label>
+            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter product Name">
+
+            <label for="review-title" class="mb-2 fw-bold">Product Group</label>
+            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter product group">
+
+            <div class="dropzone" 
+            appDrag 
+            (dropFiles)="onGetDroppedFiles($event)"
+            >
+                <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
+                <input 
+                type="file"
+                 multiple
+                 (change)="onFileChange($event)"
+                 id="images-upload">
+            </div>
+
+            <div class="images-grid">
+                <div class="review-img-wrap" *ngFor="let img of reviewImages; let i=index;">
+                    <span class="remove-btn" (click)="removeImage(i)">x</span>
+                    <img [src]="img.url" alt="" class="review-img">
+                </div>
+            </div>
+
+            
+        </form>
+    </div>
+</div>

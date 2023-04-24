@@ -1,0 +1,44 @@
+.dropzone {
+  width: 100%;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;justify-content: center;
+  cursor: pointer;
+  input{
+    display: none;
+
+  }
+  label{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+.images-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    .review-img-wrap{
+        position: relative;
+        img{
+            max-height: 108px;
+        }
+        .remove-btn{
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            right: 0;
+            top: 0;
+            display: inline-block;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+}
+
