@@ -11,16 +11,9 @@
             <label for="review-title" class="mb-2 fw-bold">Product Group</label>
             <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter product group">
 
-            <div class="dropzone" 
-            appDrag 
-            (dropFiles)="onGetDroppedFiles($event)"
-            >
+            <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
-                <input 
-                type="file"
-                 multiple
-                 (change)="onFileChange($event)"
-                 id="images-upload">
+                <input type="file" multiple (change)="onFileChange($event)" id="images-upload">
             </div>
 
             <div class="images-grid">
@@ -30,7 +23,7 @@
                 </div>
             </div>
 
-            
+
         </form>
     </div>
 </div>
