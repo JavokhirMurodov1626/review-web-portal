@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export interface ImageFile {
   file: File;
@@ -12,10 +14,18 @@ export interface ImageFile {
   styleUrls: ['./create-review.component.scss'],
 })
 export class CreateReviewComponent {
+  @ViewChild('f') reviewFrom!:NgForm
 
   constructor(private sanitizer: DomSanitizer) {}
 
+  //review inputs
+  reviewTitle:string=''
+  reviewedProductName:string=''
+  reviewedProductGroup:string=''
   reviewImages:ImageFile[]=[];
+  richtextContent:string=''
+
+  public Editor = ClassicEditor;
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -39,5 +49,9 @@ export class CreateReviewComponent {
 
   onGetDroppedFiles(files:ImageFile[]){
     this.reviewImages.push(...files);
+  }
+
+  onSubmit(){
+    console.log(this.reviewFrom.value)
   }
 }

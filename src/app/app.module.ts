@@ -13,6 +13,7 @@ import { AccountComponent } from './account/account.component';
 import { CreateReviewComponent } from './create-review/create-review.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDirective } from './create-review/drag.directive';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { DragDirective } from './create-review/drag.directive';
     SwiperModule,
     BrowserAnimationsModule,
     FormsModule,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent],

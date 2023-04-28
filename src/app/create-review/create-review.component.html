@@ -1,19 +1,47 @@
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form action="" class="col-6">
+        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()">
             <label for="review-title" class="mb-2 fw-bold">Review Title</label>
-            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter your review title">
+            <input 
+            class="form-control mb-3" 
+            type="text" 
+            id="review-title" 
+            placeholder="Enter your review title"
+            [(ngModel)]="reviewTitle"
+            name="review-title"
+            >
 
-            <label for="review-title" class="mb-2 fw-bold">Product Name</label>
-            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter product Name">
+            <label for="product-title" class="mb-2 fw-bold">Product Name</label>
+            <input 
+            class="form-control mb-3" 
+            type="text" 
+            id="product-title" 
+            placeholder="Enter product Name"
+            [(ngModel)]="reviewedProductName"
+            name="reviewed-product-name"
+            >
 
-            <label for="review-title" class="mb-2 fw-bold">Product Group</label>
-            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter product group">
+            <label for="product-group" class="mb-2 fw-bold">Product Group</label>
+            <input 
+            class="form-control mb-3" 
+            type="text" 
+            id="product-group" 
+            placeholder="Enter product group"
+            [(ngModel)]="reviewedProductGroup"
+            name="reviewed-product-group"
+            >
 
             <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
-                <input type="file" multiple (change)="onFileChange($event)" id="images-upload">
+                <input 
+                type="file" 
+                multiple 
+                (change)="onFileChange($event)"
+                ngModel
+                name="review-images"
+                id="images-upload"
+                >
             </div>
 
             <div class="images-grid">
@@ -23,7 +51,10 @@
                 </div>
             </div>
 
-
+            <ckeditor [editor]="Editor" [(ngModel)]="richtextContent" name="editor-data"></ckeditor>
+              
+            
+            <button class="btn btn-primary mt-3">Submit</button>
         </form>
     </div>
 </div>

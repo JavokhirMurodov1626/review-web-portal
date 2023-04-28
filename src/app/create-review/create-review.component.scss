@@ -5,40 +5,41 @@
   border-radius: 8px;
   margin-bottom: 16px;
   display: flex;
-  align-items: center;justify-content: center;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  input{
+  input {
     display: none;
-
   }
-  label{
+  label {
     text-decoration: underline;
     cursor: pointer;
-  } 
+  }
 }
-.images-grid{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    .review-img-wrap{
-        position: relative;
-        img{
-            max-height: 108px;
-        }
-        .remove-btn{
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            right: 0;
-            top: 0;
-            display: inline-block;
-            background-color: #ccc;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  .review-img-wrap {
+    position: relative;
+    img {
+      max-height: 108px;
     }
-    
+    .remove-btn {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      right: 0;
+      top: 0;
+      display: inline-block;
+      background-color: #ccc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
-
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 400px !important;
+}
