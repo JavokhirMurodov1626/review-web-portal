@@ -26,7 +26,7 @@ export class CreateReviewComponent {
   richtextContent: string = '';
   tag: string = '';
   tags: string[] = [];
-  productGrade:string=''
+  reviewedProductGrade:string=''
   public Editor = ClassicEditor;
 
   onFileChange(event: Event) {
@@ -70,8 +70,18 @@ export class CreateReviewComponent {
   removeAllTags() {
     this.tags = [];
   }
-  
+
   onSubmit() {
-    console.log(this.reviewFrom.value);
+    const reviewData={
+      title:this.reviewTitle,
+      productName:this.reviewedProductName,
+      productGroup:this.reviewedProductGroup,
+      images:this.reviewImages,
+      richtextContent:this.richtextContent,
+      tags:this.tags,
+      grade:this.reviewedProductGrade
+    }
+    
+    console.log(reviewData)
   }
 }
