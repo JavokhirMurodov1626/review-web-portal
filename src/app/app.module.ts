@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDirective } from './create-review/drag.directive';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ReviewCardComponent } from './home/review-card/review-card.component';
+import { LoaderComponent } from './loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { ReviewCardComponent } from './home/review-card/review-card.component';
     CreateReviewComponent,
     DragDirective,
     ReviewCardComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
