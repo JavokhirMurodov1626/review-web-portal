@@ -1,47 +1,23 @@
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()">
+        <form class="col-6" #f="ngForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
             <label for="review-title" class="mb-2 fw-bold">Review Title</label>
-            <input 
-            class="form-control mb-3" 
-            type="text" 
-            id="review-title" 
-            placeholder="Enter your review title"
-            [(ngModel)]="reviewTitle"
-            name="review-title"
-            >
+            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter your review title"
+                [(ngModel)]="reviewTitle" name="review-title" required>
 
             <label for="product-title" class="mb-2 fw-bold">Product Name</label>
-            <input 
-            class="form-control mb-3" 
-            type="text" 
-            id="product-title" 
-            placeholder="Enter product Name"
-            [(ngModel)]="reviewedProductName"
-            name="reviewed-product-name"
-            >
+            <input class="form-control mb-3" type="text" id="product-title" placeholder="Enter product Name"
+                [(ngModel)]="reviewedProductName" name="reviewed-product-name" required>
 
             <label for="product-group" class="mb-2 fw-bold">Product Group</label>
-            <input 
-            class="form-control mb-3" 
-            type="text" 
-            id="product-group" 
-            placeholder="Enter product group"
-            [(ngModel)]="reviewedProductGroup"
-            name="reviewed-product-group"
-            >
+            <input class="form-control mb-3" type="text" id="product-group" placeholder="Enter product group"
+                [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required>
 
             <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
-                <input 
-                type="file" 
-                multiple 
-                (change)="onFileChange($event)"
-                ngModel
-                name="review-images"
-                id="images-upload"
-                >
+                <input type="file" multiple (change)="onFileChange($event)" ngModel name="review-images"
+                    id="images-upload" required>
             </div>
 
             <div class="images-grid">
@@ -51,10 +27,39 @@
                 </div>
             </div>
 
-            <ckeditor [editor]="Editor" [(ngModel)]="richtextContent" name="editor-data"></ckeditor>
-              
-            
-            <button class="btn btn-primary mt-3">Submit</button>
+            <ckeditor [editor]="Editor" [(ngModel)]="richtextContent" name="editor-data" required></ckeditor>
+
+            <div class="tags-section mt-3 mb-3">
+                <div class="tags-section__header">
+                    <div class="tags-img-wrap">
+                        <img src="assets/images/Tag.svg" alt="">
+                    </div>
+                    <label for="tags" class="fw-bold tags-label">tags</label>
+                </div>
+                <div class="tags-section__main form-control mb-2">
+                    <ul>
+                        <li *ngFor="let tag of tags; let i=index;" ><span>{{tag}}</span><img (click)="removeTag(i)" src="assets/images/XCircle.svg" alt=""></li>
+                        <input type="text" id="tags" [(ngModel)]="tag" name="tag" (keyup.enter)="getTag()" >
+                    </ul>
+                </div>
+                <div class="tags-section__bottom">
+                    <button type="button" class="btn btn-outline-secondary" (click)="removeAllTags()">Remove all</button>
+                </div>
+            </div>
+
+            <div class="mb-3 product-grade">
+                <label for="product-grade__title" class=" mb-3 fw-bold">Your grade to the Product</label>
+                <input id="product-grade__title" 
+                type="number" 
+                class="form-control" 
+                placeholder="from 0 to 10" 
+                [(ngModel)]="productGrade" 
+                name="product-grade"
+                required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3" #submitButton>Submit</button>
         </form>
     </div>
 </div>

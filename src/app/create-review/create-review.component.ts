@@ -14,22 +14,24 @@ export interface ImageFile {
   styleUrls: ['./create-review.component.scss'],
 })
 export class CreateReviewComponent {
-  @ViewChild('f') reviewFrom!:NgForm
+  @ViewChild('f') reviewFrom!: NgForm;
 
   constructor(private sanitizer: DomSanitizer) {}
 
   //review inputs
-  reviewTitle:string=''
-  reviewedProductName:string=''
-  reviewedProductGroup:string=''
-  reviewImages:ImageFile[]=[];
-  richtextContent:string=''
-
+  reviewTitle: string = '';
+  reviewedProductName: string = '';
+  reviewedProductGroup: string = '';
+  reviewImages: ImageFile[] = [];
+  richtextContent: string = '';
+  tag: string = '';
+  tags: string[] = [];
+  productGrade:string=''
   public Editor = ClassicEditor;
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    console.log(event)
+    console.log(event);
     if (target && target.files) {
       const image = target.files[0];
 
@@ -43,15 +45,33 @@ export class CreateReviewComponent {
     }
   }
 
-  removeImage(id:number){
-    this.reviewImages.splice(id,1)
+  removeImage(id: number) {
+    this.reviewImages.splice(id, 1);
   }
 
-  onGetDroppedFiles(files:ImageFile[]){
+  onGetDroppedFiles(files: ImageFile[]) {
     this.reviewImages.push(...files);
   }
 
-  onSubmit(){
-    console.log(this.reviewFrom.value)
+  getTag() {
+    this.tag.replace(/\s+/g, ' ');
+    if (this.tag.length > 1 && !this.tags.includes(this.tag)) {
+      this.tag.split(',').forEach((tag) => {
+        this.tags.push(tag.trim());
+        this.tag = '';
+      });
+    }
+  }
+
+  removeTag(index: number) {
+    this.tags.splice(index, 1);
+  }
+
+  removeAllTags() {
+    this.tags = [];
+  }
+  
+  onSubmit() {
+    console.log(this.reviewFrom.value);
   }
 }
