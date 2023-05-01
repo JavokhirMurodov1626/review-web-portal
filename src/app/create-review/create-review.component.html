@@ -1,24 +1,46 @@
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form class="col-6" #f="ngForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
-            <label for="review-title" class="mb-2 fw-bold">Review Title</label>
-            <input class="form-control mb-3" type="text" id="review-title" placeholder="Enter your review title"
-                [(ngModel)]="reviewTitle" name="review-title" required>
+        <form class="col-6" #f="ngForm" (ngSubmit)="onSubmit()"
+            (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
+            <div>
+                <label for="review-title" class="mb-2 fw-bold">Review Title</label>
+                <input class="form-control mb-2" type="text" id="review-title" placeholder="Enter your review title"
+                    [(ngModel)]="reviewTitle" name="review-title" required #reviewTitleNgModel="ngModel">
+                <span class="error-message mb-2 alert alert-danger"
+                    *ngIf="reviewTitleNgModel.invalid && reviewTitleNgModel.touched">Review Title is
+                    required
+                </span>
+            </div>
 
-            <label for="product-title" class="mb-2 fw-bold">Product Name</label>
-            <input class="form-control mb-3" type="text" id="product-title" placeholder="Enter product Name"
-                [(ngModel)]="reviewedProductName" name="reviewed-product-name" required>
+            <div>
+                <label for="product-title" class="mb-2 fw-bold">Product Name</label>
+                <input class="form-control mb-2" type="text" id="product-title" placeholder="Enter product Name"
+                    [(ngModel)]="reviewedProductName" name="reviewed-product-name" required #imageInput="ngModel">
+                <span class="error-message mb-2 alert alert-danger" *ngIf="">Reviewed Product Name
+                    is
+                    required
+                </span>
+            </div>
 
-            <label for="product-group" class="mb-2 fw-bold">Product Group</label>
-            <input class="form-control mb-3" type="text" id="product-group" placeholder="Enter product group"
-                [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required>
+            <div>
+                <label for="product-group" class="mb-2 fw-bold">Product Group</label>
+                <input class="form-control mb-3" type="text" id="product-group" placeholder="Enter product group"
+                    [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required #productGroup="ngModel">
+                <span class="error-message mb-2 alert alert-danger"
+                    *ngIf="productGroup.invalid && productGroup.touched">
+                    Product Group name is required!
+                </span>
+            </div>
 
             <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
-                <input type="file" multiple (change)="onFileChange($event)" ngModel name="review-images"
-                    id="images-upload" required>
+                <input type="file" multiple accept="image/*" (change)="onFileChange($event)" ngModel
+                    name="review-images" id="images-upload" required #reviewImagesModel="ngModel">
             </div>
+
+            <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && reviewImages.length<1">
+                Please Upload at least one image</span>
 
             <div class="images-grid mb-3">
                 <div class="review-img-wrap" *ngFor="let img of reviewImages; let i=index;">
@@ -34,32 +56,32 @@
                     <div class="tags-img-wrap">
                         <img src="assets/images/Tag.svg" alt="">
                     </div>
-                    <label for="tags" class="fw-bold tags-label">tags</label>
+                    <label for="tags" class="fw-bold tags-label me-2">tags</label>
+                    <p>(optional)</p>
                 </div>
                 <div class="tags-section__main form-control mb-2">
                     <ul>
-                        <li *ngFor="let tag of tags; let i=index;" ><span>{{tag}}</span><img (click)="removeTag(i)" src="assets/images/XCircle.svg" alt=""></li>
-                        <input type="text" id="tags" [(ngModel)]="tag" name="tag" (keyup.enter)="getTag()" >
+                        <li *ngFor="let tag of tags; let i=index;"><span>{{tag}}</span><img (click)="removeTag(i)"
+                                src="assets/images/XCircle.svg" alt=""></li>
+                        <input type="text" id="tags" [(ngModel)]="tag" name="tag" (keyup.enter)="getTag()">
                     </ul>
                 </div>
                 <div class="tags-section__bottom">
-                    <button type="button" class="btn btn-outline-secondary" (click)="removeAllTags()">Remove all</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="removeAllTags()">Remove
+                        all</button>
                 </div>
             </div>
 
             <div class="mb-3 product-grade">
                 <label for="product-grade__title" class=" mb-3 fw-bold">Your grade to the Product</label>
-                <input id="product-grade__title" 
-                type="number" 
-                class="form-control" 
-                placeholder="from 0 to 10" 
-                [(ngModel)]="reviewedProductGrade" 
-                name="product-grade"
-                required
-                >
+                <input id="product-grade__title" type="number" class="form-control mb-2" placeholder="from 0 to 10"
+                    [(ngModel)]="reviewedProductGrade" name="product-grade" required max="10" #productGrade="ngModel">
+                <span class="error-message mb-2 alert alert-danger"
+                    *ngIf="productGrade.invalid && productGrade.touched">
+                    Please enter valid grade!</span>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3" #submitButton>Submit</button>
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="f.invalid" #submitButton>Submit</button>
         </form>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -13,11 +13,12 @@ export interface ImageFile {
   templateUrl: './create-review.component.html',
   styleUrls: ['./create-review.component.scss'],
 })
-export class CreateReviewComponent {
+export class CreateReviewComponent implements OnInit {
   @ViewChild('f') reviewFrom!: NgForm;
 
   constructor(private sanitizer: DomSanitizer) {}
 
+  ngOnInit() {}
   //review inputs
   reviewTitle: string = '';
   reviewedProductName: string = '';
@@ -26,8 +27,10 @@ export class CreateReviewComponent {
   richtextContent: string = '';
   tag: string = '';
   tags: string[] = [];
-  reviewedProductGrade:string=''
+  reviewedProductGrade: string = '';
   public Editor = ClassicEditor;
+
+  isSubmitted: boolean = false;
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -72,16 +75,20 @@ export class CreateReviewComponent {
   }
 
   onSubmit() {
-    const reviewData={
-      title:this.reviewTitle,
-      productName:this.reviewedProductName,
-      productGroup:this.reviewedProductGroup,
-      images:this.reviewImages,
-      richtextContent:this.richtextContent,
-      tags:this.tags,
-      grade:this.reviewedProductGrade
+    const reviewData = {
+      title: this.reviewTitle,
+      productName: this.reviewedProductName,
+      productGroup: this.reviewedProductGroup,
+      images: this.reviewImages,
+      richtextContent: this.richtextContent,
+      tags: this.tags,
+      grade: this.reviewedProductGrade,
+    };
+
+    this.isSubmitted = true;
+
+    if (this.reviewFrom.form.valid) {
+      console.log(this.reviewFrom.form);
     }
-    
-    console.log(reviewData)
   }
 }
