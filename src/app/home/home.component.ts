@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReviewCard } from './reviewCard.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-
-  constructor(private router:Router){}
+export class HomeComponent implements OnInit {
+  constructor(private router: Router,private toastr: ToastrService) {}
+  ngOnInit(): void {
+    
+  }
   reviews: ReviewCard[] = [
     {
       id: 1,
@@ -45,7 +48,11 @@ export class HomeComponent {
     },
   ];
 
-  onCreateReview(){
-    this.router.navigate(['/create-review'])
+  onCreateReview() {
+    this.router.navigate(['/create-review']);
   }
-}
+
+  showToast(){
+    this.toastr.info('this is my first working toast')
+  }
+} 

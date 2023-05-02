@@ -1,54 +1,54 @@
-@import 'swiper/scss';
-@import 'swiper/scss/navigation';
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "ngx-toastr/toastr";
 
 html {
-    // font-size: 62.5%;
-    scroll-behavior: smooth;
-    overflow-x : hidden;
+  // font-size: 62.5%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
- 
+
 body {
-    font-style: normal;
-    scroll-behavior: smooth;
-    margin: 0;
-    padding: 0;
-    overflow-x:hidden ;
+  font-style: normal;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 h1,
 h2,
 h3,
-h4, 
+h4,
 h5,
 h6,
 p {
-    margin: 0;
+  margin: 0;
 }
 
 *,
 *::after,
 *::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 img {
-    display: block;
-    width: 100%;
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  object-fit: cover;
 }
 
 ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-    list-style: none;
-
+  list-style: none;
 }
 // p{
 //     font-size: 1.6rem;
@@ -62,6 +62,72 @@ li {
 // h4{
 //     font-size: 1.8rem;
 // }
+// .ngx-toastr{
+//     background-color: rgb(25, 135, 84,0.75);
+// }
+.toast-title {
+  text-transform: capitalize;
+  font-weight: 500;
+  line-height: 1.2;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.toast-message {
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #ffffff;
+}
+.toast-container .ngx-toastr {
+  border-radius: 4px;
+  box-shadow: none;
+}
+.toast-success {
+  background-color: #55b938;
+  .toast-progress {
+    background-color: #cceac4;
+  }
+}
+.toast-error {
+  background-color: #d65745;
+  .toast-progress {
+    background-color: #f3cdc8;
+  }
+}
+.toast-info {
+  background-color: #5296d5;
+  .toast-progress {
+    background-color: #cbe0f3;
+  }
+}
+.toast-warning {
+  background-color: #eac645;
+  .toast-progress {
+    background-color: #f9eec8;
+  }
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.toast-info {
+  background-image: url("assets/images/info-icon.svg");
+}
+
+.toast-error {
+  background-image: url("assets/images/error-icon.svg");
+}
+
+.toast-success {
+  background-image: url("assets/images/success-icon.svg");
+}
+
+.toast-warning {
+  background-image: url("assets/images/warning-icon.svg");
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand text-primary" href="#">Reviews Portal</a>
+      <a class="navbar-brand text-primary" routerLink="/">Reviews Portal</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -26,11 +26,11 @@
           <option value="en">UZ</option>
           <option value="uz">EN</option>
         </select>
-
+ 
         <button class="btn btn-outline-primary me-2">Login</button>
         <button class="btn btn-outline-primary me-2">Log Out</button>
         <button class="btn btn-outline-success">Register</button>
-        <div class="user-account-icon">
+        <div class="user-account-icon" [routerLink]="['/account']">
           <img src="assets/images/profile-image.jpg" alt="">
         </div>
       </div>

@@ -16,6 +16,7 @@ import { DragDirective } from './create-review/drag.directive';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ReviewCardComponent } from './home/review-card/review-card.component';
 import { LoaderComponent } from './loader/loader.component';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,7 @@ import { LoaderComponent } from './loader/loader.component';
     CreateReviewComponent,
     DragDirective,
     ReviewCardComponent,
-    LoaderComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,11 @@ import { LoaderComponent } from './loader/loader.component';
     SwiperModule,
     BrowserAnimationsModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    ToastrModule.forRoot({
+      progressBar:true,
+      progressAnimation:'increasing',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
