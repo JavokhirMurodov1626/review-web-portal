@@ -1,1 +1,33 @@
-
+<div class="container d-flex align-items-center flex-column">
+    <h1 class="text-primary my-3">Review Platform</h1>
+    <form class="col-4 login-form p-5" >
+        <div class="mb-3">
+            <label for="userEmail" class="form-label fw-bold">Email address</label>
+            <input type="email" class="form-control" id="userEmail" placeholder="Enter your email">
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label fw-bold">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+        </div>
+        <div class="mb-4">
+            <label for="userPassword" class="form-label fw-bold">Password</label>
+            <input type="password" class="form-control" id="userPassword" placeholder="Enter your password">
+            <p class="text-right mt-2 forgot-password"><a>Forgot Password?</a></p>
+        </div>
+        
+        <div class="mb-3">
+            <p class="form-line"><span>Or Login With</span></p>
+            <div class="login-options mt-2">
+                <div class="login-option">
+                    <img src="assets/images/google-logo.svg" alt="">
+                </div>
+                <div class="login-option">
+                    <img src="assets/images/facebook-logo.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary login-btn">
+            Login
+        </button>
+    </form>
+</div>

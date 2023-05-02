@@ -53,6 +53,6 @@ export class HomeComponent implements OnInit {
   }
 
   showToast(){
-    this.toastr.info('this is my first working toast')
+    this.toastr.success('this is my first working toast')
   }
 } 

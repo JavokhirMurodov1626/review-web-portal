@@ -17,6 +17,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ReviewCardComponent } from './home/review-card/review-card.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
     CreateReviewComponent,
     DragDirective,
     ReviewCardComponent,
-    LoaderComponent
+    LoaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

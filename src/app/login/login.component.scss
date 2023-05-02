@@ -1,0 +1,53 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.form-line {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #ced4da;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.form-line span {
+  background: #fff;
+  padding: 0 10px;
+}
+.login-options {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  .login-option {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: #ece9ec;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.forgot-password{
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+

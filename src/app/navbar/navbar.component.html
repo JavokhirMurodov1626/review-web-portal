@@ -27,9 +27,9 @@
           <option value="uz">EN</option>
         </select>
  
-        <button class="btn btn-outline-primary me-2">Login</button>
+        <button class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</button>
         <button class="btn btn-outline-primary me-2">Log Out</button>
-        <button class="btn btn-outline-success">Register</button>
+        <button class="btn btn-outline-success" [routerLink]="['/register']">Register</button>
         <div class="user-account-icon" [routerLink]="['/account']">
           <img src="assets/images/profile-image.jpg" alt="">
         </div>
