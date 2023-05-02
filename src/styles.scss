@@ -123,6 +123,13 @@ li {
 .toast-warning {
   background-image: url("assets/images/warning-icon.svg");
 }
+
+.error-message{
+    margin-top: 8px;
+    font-size: 14px;
+    color: red;
+}
+
 html,
 body {
   height: 100%;

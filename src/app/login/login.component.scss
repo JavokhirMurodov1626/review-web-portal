@@ -42,12 +42,21 @@
   }
 }
 
-.forgot-password{
-    display: flex;
-    justify-content: end;
-    cursor: pointer;
-    &:hover{
-        text-decoration: underline;
-    }
+.forgot-password {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.register-link {
+  margin-top: 8px;
+  font-size: 14px;
+  text-decoration: underline;
+}
