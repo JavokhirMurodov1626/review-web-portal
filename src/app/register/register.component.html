@@ -1,3 +1,4 @@
+<app-loader *ngIf="isLoading"></app-loader>
 <div class="container d-flex align-items-center flex-column">
     <h1 class="text-primary my-3">Register Review Platform</h1>
     <form class="col-4 register-form p-5" (ngSubmit)="onSubmit()" #f="ngForm" >
@@ -39,7 +40,7 @@
             >
             <p class="error-message" *ngIf="userPasswordModel.invalid && userPasswordModel.touched" >Please enter valid password!</p>
         </div>
-        
+         
         <div class="mb-3">
             <p class="form-line"><span>Or Register With</span></p>
             <div class="login-options mt-2">
