@@ -44,7 +44,7 @@ import { RegisterComponent } from './register/register.component';
     CKEditorModule,
     ToastrModule.forRoot({
       progressBar:true,
-      progressAnimation:'increasing',
+      progressAnimation:'increasing'
     }),
   ],
   providers: [],

@@ -1,3 +1,4 @@
+<app-loader *ngIf="isLoading"></app-loader>
 <div class="container d-flex align-items-center flex-column">
     <h1 class="text-primary my-3">Login Review Platform</h1>
     <form class="col-4 login-form p-5" (ngSubmit)="onSubmit()" #f="ngForm">

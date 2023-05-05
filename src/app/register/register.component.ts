@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthResponse, AuthService } from '../services/auth.service';
-import { LoaderService } from '../loader/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,8 @@ export class RegisterComponent {
 
   constructor(
     private authservice: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) {}
 
   onSubmit() {
@@ -33,6 +34,7 @@ export class RegisterComponent {
           this.toastr.success(response.message);
           console.log(response);
           this.isLoading = false;
+          this.router.navigate(['/login'])
         },
         error: (error: string) => {
           this.toastr.error(error);
