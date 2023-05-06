@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
@@ -18,7 +19,9 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
+
   ) {}
 
   onSubmit() {
@@ -38,5 +41,16 @@ export class LoginComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  loginGoogle() {
+   this.authService.loginWithGoogle().subscribe({
+    next:res=>{
+      console.log(res)
+    },
+    error:err=>{
+      console.log(err);
+    }
+   })
   }
 }

@@ -1,3 +1,4 @@
+import { API_URL } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
@@ -26,7 +27,7 @@ export class AuthService {
 
   register(name: string, email: string, password: string) {
     return this.http
-      .post<AuthResponse>('http://localhost:3000/register', {
+      .post<AuthResponse>(`${API_URL}/register`, {
         name,
         email,
         password,
@@ -36,7 +37,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponse>('http://localhost:3000/login', {
+      .post<AuthResponse>(`${API_URL}/login`, {
         email,
         password,
       })
@@ -93,6 +94,10 @@ export class AuthService {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
+  }
+
+  loginWithGoogle(){
+    return this.http.get(`${API_URL}/auth/google`)
   }
 
   private handleError(errRes: HttpErrorResponse) {
