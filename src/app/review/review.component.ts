@@ -13,7 +13,7 @@ export class ReviewComponent {
     this.selectedValue = star;
   }
 
-  addClass(star: number) {
+  addStarClass(star: number) {
     let ab = '';
     for (let i = 0; i < star; i++) {
       ab = 'starId' + i;
@@ -21,7 +21,7 @@ export class ReviewComponent {
       element.classList.add('selected');
     }
   }
-  removeClass(star: number) {
+  removeStarClass(star: number) {
     let ab = '';
     for (let i = star - 1; i >= this.selectedValue; i--) {
       ab = 'starId' + i;

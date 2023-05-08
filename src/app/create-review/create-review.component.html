@@ -1,7 +1,8 @@
+<app-loader *ngIf="isLoading"></app-loader>
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form class="col-6" #f="ngForm" (ngSubmit)="onSubmit()"
+        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()"
             (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
             <div>
                 <label for="review-title" class="mb-2 fw-bold">Review Title</label>
@@ -9,7 +10,7 @@
                     [(ngModel)]="reviewTitle" name="review-title" required #reviewTitleNgModel="ngModel">
                 <span class="error-message mb-2 alert alert-danger"
                     *ngIf="reviewTitleNgModel.invalid && reviewTitleNgModel.touched">Review Title is
-                    required
+                     required
                 </span>
             </div>
 
@@ -22,11 +23,26 @@
                     required
                 </span>
             </div>
+            <div>
+                <label for="review-description" class="mb-2 fw-bold">Small Text Descripton of Review</label>
+                <textarea class="form-control mb-2" id="review-description" placeholder="Enter Review descripton"
+                    [(ngModel)]="reviewDescription" name="review-description" required #imageInput="ngModel"></textarea>
+                <span class="error-message mb-2 alert alert-danger" *ngIf="">Review Description
+                    is
+                    required
+                </span>
+            </div>
 
             <div>
                 <label for="product-group" class="mb-2 fw-bold">Product Group</label>
-                <input class="form-control mb-3" type="text" id="product-group" placeholder="Enter product group"
-                    [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required #productGroup="ngModel">
+                <select name=""  class="form-control mb-3" 
+                id="product-group" 
+                [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required #productGroup="ngModel"
+                >
+                    <option value="movie">Movies</option>
+                    <option value="book">Books</option>
+                    <option value="game">Games</option>
+                </select>
                 <span class="error-message mb-2 alert alert-danger"
                     *ngIf="productGroup.invalid && productGroup.touched">
                     Product Group name is required!
@@ -36,7 +52,7 @@
             <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
                 <input type="file" multiple accept="image/*" (change)="onFileChange($event)" ngModel
-                    name="review-images" id="images-upload" required #reviewImagesModel="ngModel">
+                    name="review-images" id="images-upload" #reviewImagesModel="ngModel">
             </div>
 
             <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && reviewImages.length<1">

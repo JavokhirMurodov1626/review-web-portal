@@ -1,7 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { EncodeImagesService } from './../services/uploadImages.service';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AuthService } from '../services/auth.service';
+import { ReviewService } from '../services/review.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 export interface ImageFile {
   file: File;
@@ -13,14 +19,22 @@ export interface ImageFile {
   templateUrl: './create-review.component.html',
   styleUrls: ['./create-review.component.scss'],
 })
-export class CreateReviewComponent implements OnInit {
+export class CreateReviewComponent implements OnInit, OnDestroy {
   @ViewChild('f') reviewFrom!: NgForm;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private reviewService: ReviewService,
+    private encodeImages: EncodeImagesService,
+    private toastr: ToastrService,
+    private router:Router
+  ) {}
 
-  ngOnInit() {}
   //review inputs
+  authorId!: number;
   reviewTitle: string = '';
+  reviewDescription!: string;
   reviewedProductName: string = '';
   reviewedProductGroup: string = '';
   reviewImages: ImageFile[] = [];
@@ -29,16 +43,24 @@ export class CreateReviewComponent implements OnInit {
   tags: string[] = [];
   reviewedProductGrade: string = '';
   public Editor = ClassicEditor;
-
   isSubmitted: boolean = false;
+  currentUser!: Subscription;
+  encodedImages!: string[];
+  isLoading:boolean=false;
+
+  ngOnInit() {
+    this.currentUser = this.authService.user.subscribe((user) => {
+      if (user) {
+        this.authorId = user.id;
+      }
+    });
+  }
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    console.log(event);
     if (target && target.files) {
       const image = target.files[0];
-
-      const imageFile: ImageFile = {
+      const imageFile = {
         file: image,
         url: this.sanitizer.bypassSecurityTrustUrl(
           window.URL.createObjectURL(image)
@@ -74,21 +96,54 @@ export class CreateReviewComponent implements OnInit {
     this.tags = [];
   }
 
-  onSubmit() {
+  async handleEncodeImages(images: ImageFile[]) {
+    try {
+      const result = await this.encodeImages.encodeImages(images);
+      this.encodedImages = result;
+    } catch (error) {
+      console.error('Error encoding images:', error);
+    }
+  }
+
+  async onSubmit() {
+    await this.handleEncodeImages(this.reviewImages);
+
     const reviewData = {
+      authorId: this.authorId,
       title: this.reviewTitle,
       productName: this.reviewedProductName,
       productGroup: this.reviewedProductGroup,
-      images: this.reviewImages,
-      richtextContent: this.richtextContent,
+      description: this.reviewDescription,
+      content: this.richtextContent,
       tags: this.tags,
-      grade: this.reviewedProductGrade,
+      images: this.encodedImages,
+      productGrade: +this.reviewedProductGrade,
     };
 
     this.isSubmitted = true;
-
+    this.isLoading=true;
+    
     if (this.reviewFrom.form.valid) {
-      console.log(this.reviewFrom.form);
+      this.reviewService.createReview(reviewData).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          this.toastr.success(res.message);
+          this.reviewFrom.reset();
+          this.reviewImages=[]
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.log(error);
+          this.toastr.error(error);
+          this.isLoading = false;
+        },
+      });
+
+      console.log(reviewData);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.currentUser.unsubscribe();
   }
 }

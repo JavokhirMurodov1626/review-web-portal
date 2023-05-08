@@ -38,7 +38,7 @@
                 <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index"
                     style="display: inline-block">
                     <li (click)="countStar(star)" id="{{'starId'+i}}" [ngClass]="{'selected': (star <= selectedValue)}"
-                        (mouseover)="addClass(star)" (mouseout)="removeClass(star)"> ★
+                        (mouseover)="addStarClass(star)" (mouseout)="removeStarClass(star)"> ★
                     </li>
                 </ul>
             </div>
