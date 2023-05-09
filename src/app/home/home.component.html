@@ -8,16 +8,12 @@
 
     <section>
         <h2 class="section-title">Recently added reviews</h2>
-        <app-review-card *ngFor="let review of reviews;" [review]="review"></app-review-card>
+        <app-review-card *ngFor="let review of lastReviews;" [review]="review"></app-review-card>
     </section>
     <hr>
     <section>
         <h2 class="section-title">Reviews with the highest grades</h2>
-        <app-review-card *ngFor="let review of reviews;" [review]="review"></app-review-card>
+        <app-review-card *ngFor="let review of lastReviews;" [review]="review"></app-review-card>
     </section>
 
 </div>
-
-<button class="btn btn secondary" (click)="showToast()">
-    show toast
-</button>

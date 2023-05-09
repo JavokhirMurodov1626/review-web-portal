@@ -1,6 +1,6 @@
 <div class="review-card" [routerLink]="['/reviews',review.id]">
     <div class="review-group">
-        <p>{{review.productGroup}}</p>
+        <p>{{review.group}}</p>
     </div>
 
     <div class="card-top">
@@ -8,7 +8,7 @@
             <img src="assets/images/profile-image.jpg" alt="">
         </div>
         <p class="author-name">
-            Murodov Javohir
+            {{review.author.name}}
         </p>
         <p class="review-created-time">
             {{review.createdAt}}
@@ -16,18 +16,18 @@
     </div>
     <div class="card-body">
         <div class="card-body__left">
-            <h3 class="card-body__title">{{review.reviewTitle}}</h3>
-            <h6 class="card-body__product-name">{{review.productName}}</h6>
+            <h3 class="card-body__title">{{review.title}}</h3>
+            <h6 class="card-body__product-name">{{review.product.name}}</h6>
             <p class="card-body__text">
-                {{review.reviewContent}}
+                {{review.description}}
             </p>
         </div>
         <div class="card-body__right">
-            <img src={{review.image}} alt="">
+            <img src={{review.images[0]}} alt="">
         </div>
     </div>
     <div class="card-bottom tags">
-        <div class="tag" *ngFor="let tag of review.tags">{{tag}}</div>
+        <div class="tag" *ngFor="let tag of review.tags">{{tag.name}}</div>
        
     </div>
 

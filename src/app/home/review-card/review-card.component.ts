@@ -1,10 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ReviewCard } from '../reviewCard.model';
 
 @Component({
   selector: 'app-review-card',
   templateUrl: './review-card.component.html',
   styleUrls: ['./review-card.component.scss'],
 })
-export class ReviewCardComponent {
-  @Input() review: any;
+export class ReviewCardComponent implements OnInit{
+  @Input() review!: ReviewCard;
+  
+  ngOnInit(): void {
+      
+  }
 }

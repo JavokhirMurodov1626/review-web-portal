@@ -122,15 +122,16 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
 
     this.isSubmitted = true;
     this.isLoading=true;
-    
+
     if (this.reviewFrom.form.valid) {
       this.reviewService.createReview(reviewData).subscribe({
         next: (res) => {
+          console.log(res)
           this.isLoading = false;
           this.toastr.success(res.message);
-          this.reviewFrom.reset();
-          this.reviewImages=[]
-          this.router.navigate(['/']);
+          // this.reviewFrom.reset();
+          // this.reviewImages=[]
+          // this.router.navigate(['/']);
         },
         error: (error) => {
           console.log(error);

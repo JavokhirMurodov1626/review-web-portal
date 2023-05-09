@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { take, exhaustMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Review } from './review.model';
+import { ReviewCardResponse } from '../home/reviewCard.model';
 
 
 export interface generatedReview {
@@ -45,10 +46,16 @@ export class ReviewService {
           'Authorization',
           `Bearer ${user?.token}`
         );
-        return this.http.post<ReviewResponse>(`${API_URL}/review`, reviewData, {headers});
+        return this.http.post<ReviewResponse>(`${API_URL}/review/create`, reviewData, {headers});
       }),
       catchError(this.handleError)
     );
+  }
+
+  getLastReviews(){
+    return this.http.get<ReviewCardResponse>(`${API_URL}/review`).pipe(
+        catchError(this.handleError)
+    )
   }
 
   private handleError(errRes: HttpErrorResponse) {
