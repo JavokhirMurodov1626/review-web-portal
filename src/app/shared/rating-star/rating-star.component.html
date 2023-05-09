@@ -1,0 +1,7 @@
+<div class="star-rating" *ngIf="rating>0">
+    <span class="fa fa-star" [ngClass]="{'checked': rating >= 1}"></span>
+    <span class="fa fa-star" [ngClass]="{'checked': rating >= 2}"></span>
+    <span class="fa fa-star" [ngClass]="{'checked': rating >= 3}"></span>
+    <span class="fa fa-star" [ngClass]="{'checked': rating >= 4}"></span>
+    <span class="fa fa-star" [ngClass]="{'checked': rating >= 5}"></span>
+</div>

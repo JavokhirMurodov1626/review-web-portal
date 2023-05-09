@@ -114,9 +114,12 @@
     .comment-head__left {
       display: flex;
       gap: 0.8rem;
+      align-items: center;
       .user-image-wrap {
         width: 32px;
         height: 32px;
+        border-radius: 50%;
+        border: 1px solid #e7e7e7;
         img {
           height: 100%;
           border-radius: 50%;
@@ -138,4 +141,3 @@
       rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   }
 }
-

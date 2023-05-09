@@ -19,6 +19,7 @@ import { ReviewCardComponent } from './home/review-card/review-card.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
+import { RatingStarComponent } from './shared/rating-star/rating-star.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { RegisterComponent } from './register/register.component';
     DragDirective,
     ReviewCardComponent,
     LoaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    RatingStarComponent
   ],
   imports: [
     BrowserModule,

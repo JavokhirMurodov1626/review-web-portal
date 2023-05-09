@@ -1,4 +1,3 @@
-
 import { API_URL } from './../../environments/environment';
 import {
   HttpClient,
@@ -6,13 +5,11 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ImageFile } from '../create-review/create-review.component';
 import { AuthService } from './auth.service';
 import { take, exhaustMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Review } from './review.model';
 import { ReviewCardResponse } from '../home/reviewCard.model';
-
 
 export interface generatedReview {
   authorId: number;
@@ -26,15 +23,23 @@ export interface generatedReview {
   tags: string[];
 }
 
-export interface ReviewResponse{
-    message:string,
-    review:Review
+export interface ReviewResponse {
+  message: string;
+  review: Review;
 }
 
+export interface CommentData {
+  id?: number;
+  text: string;
+  authorId?: number;
+  reviewId: number;
+  rate: number;
+  createdTimeAgo?: string;
+  message?: string;
+}
 @Injectable({
   providedIn: 'root',
 })
-
 export class ReviewService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -46,22 +51,44 @@ export class ReviewService {
           'Authorization',
           `Bearer ${user?.token}`
         );
-        return this.http.post<ReviewResponse>(`${API_URL}/review/create`, reviewData, {headers});
+        return this.http.post<ReviewResponse>(
+          `${API_URL}/review/create`,
+          reviewData,
+          { headers }
+        );
       }),
       catchError(this.handleError)
     );
   }
 
-  getLastReviews(){
-    return this.http.get<ReviewCardResponse>(`${API_URL}/review`).pipe(
-        catchError(this.handleError)
-    )
+  getLastReviews() {
+    return this.http
+      .get<ReviewCardResponse>(`${API_URL}/review`)
+      .pipe(catchError(this.handleError));
   }
 
-  getSelectedReview(id:number){
-    return this.http.post<ReviewResponse>(`${API_URL}/review/:id`,{
-        id
-    }).pipe(catchError(this.handleError))
+  getSelectedReview(id: number) {
+    return this.http
+      .post<ReviewResponse>(`${API_URL}/review/:id`, {
+        id,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  sendComment(commentData: CommentData) {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${user?.token}`
+        );
+        return this.http
+        .post<CommentData>(`${API_URL}/review/:id/rating`, commentData,{ headers })
+      }),
+      catchError(this.handleError)
+    );
+      
   }
 
   private handleError(errRes: HttpErrorResponse) {

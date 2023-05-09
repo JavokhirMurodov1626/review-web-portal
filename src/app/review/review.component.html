@@ -22,7 +22,7 @@
     <app-swiper [reviewImages]="review.images"></app-swiper>
 
     <div class="product-content" [innerHtml]="reviewRichTextContent">
-       
+
     </div>
 
     <hr>
@@ -34,8 +34,9 @@
                 <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index"
                     style="display: inline-block">
                     <li (click)="countStar(star)" id="{{'starId'+i}}"
-                        [ngClass]="{'selected': (star <= selectedStarValue)}" (mouseover)="addStarClass(star)"
-                        (mouseout)="removeStarClass(star)"> ★
+                        (mouseover)="addStarClass(star)"
+                        (mouseout)="removeStarClass(star)"> 
+                        <span class="fa fa-star" [ngClass]="{'checked': (star <= selectedStarValue)}" ></span>
                     </li>
                 </ul>
             </div>
@@ -52,58 +53,36 @@
         </div>
 
         <div class="comment-input">
-            <input type="text" class="form-control" placeholder="Comment here ...">
+            <input type="text" class="form-control" placeholder="Comment here ..." [(ngModel)]="reviewComment">
         </div>
-        <div class="send-comment-btn">
+        <div class="send-comment-btn" (click)="sendComment()">
             <img src="assets/images/PaperPlaneRight.svg" alt="">
         </div>
     </div>
 
     <div class="comments-list">
-        <div class="comment">
+
+        <div class="comment" *ngFor="let comment of commentList;">
             <div class="comment-head">
                 <div class="comment-head__left">
                     <div class="user-image-wrap">
-                        <img src="assets/images/profile-image.jpg" alt="">
+                        <img src="{{currentUser.image}}" alt="">
                     </div>
-                    <p class="user-name">Murodov Javohir</p>
-                    <ul class="list-inline " *ngFor="let star of stars; let i= index" style="display: inline-block">
-                        <li id="{{'starId'+i}}"> ★
-                        </li>
-                    </ul>
+                    <p class="user-name">{{currentUser.name}}</p>
+
+                   <app-rating-star [rating]="comment.rate"></app-rating-star>
                 </div>
                 <div class="comment-head__right">
                     <p class="comment-create-time">
-                        2 days ago
+                        {{comment.createdTimeAgo}}
                     </p>
                 </div>
             </div>
             <div class="comment-body">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
-                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
-                voluptas!
+                {{comment.text}}
             </div>
         </div>
-        <div class="comment">
-            <div class="comment-head">
-                <div class="comment-head__left">
-                    <div class="user-image-wrap">
-                        <img src="assets/images/profile-image.jpg" alt="">
-                    </div>
-                    <p class="user-name">Murodov Javohir</p>
-                </div>
-                <div class="comment-head__right">
-                    <p class="comment-create-time">
-                        2 days ago
-                    </p>
-                </div>
-            </div>
-            <div class="comment-body">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
-                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
-                voluptas!
-            </div>
-        </div>
+
         <div class="comment">
             <div class="comment-head">
                 <div class="comment-head__left">
