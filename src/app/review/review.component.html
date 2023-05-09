@@ -1,32 +1,28 @@
-<div class="container">
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="container" *ngIf="!isLoading">
     <div class="review-top">
         <div class="author-image">
-            <img src="assets/images/profile-image.jpg" alt="">
+            <img src="{{review.author.image || 'assets/images/default-profile-img.jpg'}}" alt="">
         </div>
         <div class="review-top__right">
-            <p class="author-name">Murodov Javohir</p>
-            <p class="created-time">Feb 9</p>
+            <p class="author-name">{{review.author.name}}</p>
+            <p class="created-time">{{formattedDate}}</p>
         </div>
 
         <div class="review-group">
-            <p>Book</p>
+            <p>{{review.group}}</p>
         </div>
     </div>
-    <h1 class="review-title">Angular Interview Questions</h1>
+    <h1 class="review-title">{{review.title}}</h1>
     <div class="product-grade-wrap">
-        <h5 class="product-name">Deep work</h5>
-        <h6><em>Grade: 10/9</em></h6>
+        <h5 class="product-name">{{review.product.name}}</h5>
+        <h6><em>Grade: 10/{{review.productGrade}}</em></h6>
     </div>
-    <app-swiper></app-swiper>
-    <div class="product-content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda dicta expedita temporibus quos similique
-            doloremque pariatur consequuntur laudantium est sed ullam animi mollitia, quia at. Perspiciatis excepturi
-            hic, eum sapiente tenetur repellendus neque voluptatibus quam soluta pariatur asperiores repellat et?
-            Pariatur illum maxime amet cum odit hic id animi doloribus nam sit autem molestiae in laboriosam similique,
-            ipsum provident maiores, nisi eius error atque tempora deserunt! Optio perferendis, laborum eligendi non est
-            fugit atque soluta sequi incidunt excepturi esse voluptatibus consequatur placeat ex aspernatur accusantium.
-            Hic sunt recusandae optio blanditiis totam temporibus veritatis consequuntur adipisci aperiam labore. Odit,
-            magnam adipisci.</p>
+
+    <app-swiper [reviewImages]="review.images"></app-swiper>
+
+    <div class="product-content" [innerHtml]="reviewRichTextContent">
+       
     </div>
 
     <hr>
@@ -37,8 +33,9 @@
             <div class="col-sm-12 d-flex justify-content-center">
                 <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index"
                     style="display: inline-block">
-                    <li (click)="countStar(star)" id="{{'starId'+i}}" [ngClass]="{'selected': (star <= selectedValue)}"
-                        (mouseover)="addStarClass(star)" (mouseout)="removeStarClass(star)"> ★
+                    <li (click)="countStar(star)" id="{{'starId'+i}}"
+                        [ngClass]="{'selected': (star <= selectedStarValue)}" (mouseover)="addStarClass(star)"
+                        (mouseout)="removeStarClass(star)"> ★
                     </li>
                 </ul>
             </div>
@@ -70,8 +67,7 @@
                         <img src="assets/images/profile-image.jpg" alt="">
                     </div>
                     <p class="user-name">Murodov Javohir</p>
-                    <ul class="list-inline " *ngFor="let star of stars; let i= index"
-                        style="display: inline-block">
+                    <ul class="list-inline " *ngFor="let star of stars; let i= index" style="display: inline-block">
                         <li id="{{'starId'+i}}"> ★
                         </li>
                     </ul>

@@ -1,16 +1,7 @@
-<swiper [slidesPerView]="1" [spaceBetween]="20" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()"
+<swiper [slidesPerView]="1" [spaceBetween]="20"
     [navigation]="true" [pagination]="{ clickable: true }" [scrollbar]="{ draggable: true }">
-    <ng-template swiperSlide>
-        <img src="assets/images/bread.jpg" alt="">
+
+    <ng-template swiperSlide *ngFor="let image of reviewImages">
+        <img src="{{image}}" alt="">
     </ng-template>
-    <ng-template swiperSlide>
-        <img src="assets/images/mountain.jpg" alt="">
-    </ng-template>
-    <ng-template swiperSlide>
-        <img src="assets/images/valley.jpg" alt="">
-    </ng-template>
-    <ng-template swiperSlide>
-        <img src="assets/images/wheat land.jpg" alt="">
-    </ng-template>
-    
 </swiper>

@@ -10,9 +10,12 @@
   .author-image {
     width: 60px;
     height: 60px;
+    border-radius: 50%;
+    border: 1px solid #e7e7e7;
     img {
       height: 100%;
       border-radius: 50%;
+
     }
   }
   .created-time {
@@ -28,6 +31,7 @@
     line-height: 20px;
     font-weight: 500;
     border-radius: 100px;
+    text-transform: capitalize;
   }
 }
 

@@ -58,6 +58,12 @@ export class ReviewService {
     )
   }
 
+  getSelectedReview(id:number){
+    return this.http.post<ReviewResponse>(`${API_URL}/review/:id`,{
+        id
+    }).pipe(catchError(this.handleError))
+  }
+
   private handleError(errRes: HttpErrorResponse) {
     let errorMessage = `Unknown Error occured!`;
     if (!errRes.error || !errRes.error.error) {

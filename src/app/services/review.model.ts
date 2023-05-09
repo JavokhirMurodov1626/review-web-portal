@@ -33,11 +33,11 @@ export interface Review {
   tags: Tag[];
   content: string;
   images: string[];
-  rating: number;
+  rating: Rating[];
   createdAt: Date;
   updatedAt: Date;
   comments: Comment[];
-  likes: number;
+  likes: Like[];
 }
 
 export interface Product {
@@ -46,6 +46,18 @@ export interface Product {
   reviews: Review[];
 }
 
+export interface Rating {
+  id: number;
+  value: number;
+  user: User;
+  review: Review;
+}
+
+export interface Like {
+  id: number;
+  user: User;
+  review: Review;
+}
 export interface Comment {
   id: number;
   content: string;
