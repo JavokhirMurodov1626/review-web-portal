@@ -10,7 +10,7 @@ import { ReviewService } from '../services/review.service';
 })
 export class HomeComponent implements OnInit {
   lastReviews: ReviewCard[] = [];
-  
+  isLoading: boolean = false;
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -18,51 +18,19 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.reviewService.getLastReviews().subscribe({
       next: (res) => {
         this.lastReviews = res.reviews;
+        this.isLoading = false;
         console.log(res);
       },
       error: (error) => {
+        this.isLoading = false;
         console.log(error);
       },
     });
   }
-  // reviews: ReviewCard[] = [
-  //   {
-  //     id: 1,
-  //     productGroup: 'Book',
-  //     reviewTitle: 'Angular Interview Questions',
-  //     productName: 'Deep Work',
-  //     reviewContent: `First of all best of luck with your interview. hope this article will be helpful. What is the design pattern of the
-  //      angular framework? The angular framework used Single Page Application design pattern. What...`,
-  //     tags: ['Angular', 'Javascript', 'Rxjs'],
-  //     image: 'assets/images/review-pic.webp',
-  //     createdAt: 'Feb 9',
-  //   },
-  //   {
-  //     id: 2,
-  //     productGroup: 'Book',
-  //     reviewTitle: 'Angular Interview Questions',
-  //     productName: 'Deep Work',
-  //     reviewContent: `First of all best of luck with your interview. hope this article will be helpful. What is the design pattern of the
-  //      angular framework? The angular framework used Single Page Application design pattern. What...`,
-  //     tags: ['Angular', 'Javascript', 'Rxjs'],
-  //     image: 'assets/images/review-pic.webp',
-  //     createdAt: 'Feb 9',
-  //   },
-  //   {
-  //     id: 3,
-  //     productGroup: 'Book',
-  //     reviewTitle: 'Angular Interview Questions',
-  //     productName: 'Deep Work',
-  //     reviewContent: `First of all best of luck with your interview. hope this article will be helpful. What is the design pattern of the
-  //      angular framework? The angular framework used Single Page Application design pattern. What...`,
-  //     tags: ['Angular', 'Javascript', 'Rxjs'],
-  //     image: 'assets/images/review-pic.webp',
-  //     createdAt: 'Feb 9',
-  //   },
-  // ];
 
   onCreateReview() {
     this.router.navigate(['/create-review']);

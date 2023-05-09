@@ -14,7 +14,7 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-
+      border:solid 1px #e7e7e7 ;
       img {
         height: 100%;
         border-radius: 50%;
@@ -24,6 +24,14 @@
   .card-body {
     display: flex;
     gap: 2rem;
+    .card-body__right{
+      max-width: 35%;
+      display: flex;
+      align-items: center;
+      img{
+        width: 100%;
+      }
+    }
     .card-body__title {
       margin-bottom: 0.5rem;
     }
@@ -34,6 +42,7 @@
   .card-bottom.tags {
     display: flex;
     gap: 10px;
+    margin-top: 20px;
     .tag {
       background-color: rgba(242, 242, 242, 1);
       padding: 2px 8px;
@@ -55,5 +64,8 @@
     line-height: 20px;
     font-weight: 500;
     border-radius: 100px;
+    p{
+      text-transform: capitalize;
+    }
   }
 }
