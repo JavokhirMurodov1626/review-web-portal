@@ -1,3 +1,4 @@
+import { Author } from './../home/reviewCard.model';
 import { API_URL } from './../../environments/environment';
 import {
   HttpClient,
@@ -8,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { take, exhaustMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { Review } from './review.model';
+import { Rating, Review } from './review.model';
 import { ReviewCardResponse } from '../home/reviewCard.model';
 
 export interface generatedReview {
@@ -30,16 +31,21 @@ export interface ReviewResponse {
 
 export interface CommentData {
   id?: number;
-  text: string;
+  content: string;
   authorId?: number;
   reviewId: number;
-  rate: number;
   createdTimeAgo?: string;
-  message?: string;
+}
+interface RatingData {
+  id?: number;
+  value: number;
+  authorId: number | undefined;
+  reviewId: number;
 }
 @Injectable({
   providedIn: 'root',
 })
+
 export class ReviewService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -83,12 +89,31 @@ export class ReviewService {
           'Authorization',
           `Bearer ${user?.token}`
         );
-        return this.http
-        .post<CommentData>(`${API_URL}/review/:id/rating`, commentData,{ headers })
+        return this.http.post<CommentData>(
+          `${API_URL}/review/:id/comment`,
+          commentData,
+          { headers }
+        );
       }),
       catchError(this.handleError)
     );
-      
+  }
+
+  sendRating(rating: RatingData) {
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${user?.token}`
+        );
+        return this.http.post<RatingData>(`${API_URL}/review/:id/rating`, rating,
+        {
+          headers
+        });
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(errRes: HttpErrorResponse) {

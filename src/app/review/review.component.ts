@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   stars: number[] = [1, 2, 3, 4, 5];
-  selectedStarValue: number = 0;
+  selectedStarValue!: number;
   isLiked: boolean = false;
   reviewId!: number;
   review!: Review;
@@ -40,6 +40,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
     this.route.paramMap.subscribe((params) => {
       if (params) {
         let paramId = params.get('id');
@@ -95,20 +96,50 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.selectedStarValue = star;
   }
 
+  // making rating star
   addStarClass(star: number) {
-    let ab = '';
-    for (let i = 0; i < star; i++) {
-      ab = 'starId' + i;
-      let element = document.getElementById(ab) as HTMLElement;
+    let starId = '';
+
+    for (let i = 0; i < star + 1; i++) {
+      starId = 'starId' + i;
+      let element = document.getElementById(starId) as HTMLElement;
       element.classList.add('selected');
     }
+
+    for (let i = star + 1; i <= 4; i++) {
+      starId = 'starId' + i;
+      let element = document.getElementById(starId) as HTMLElement;
+      element.classList.remove('selected');
+    }
+    // assigning user rate
+    this.selectedStarValue = star + 1;
+
+    //assigning rating data
+    const ratingData = {
+      value: this.selectedStarValue,
+      authorId: this.currentUser.authorId,
+      reviewId: this.review.id,
+    };
+
+    // //sending rating data
+    this.reviewService.sendRating(ratingData).subscribe({
+      next: (res) => {
+        console.log(res)
+        console.log('ehlloe')
+        this.removeStarClass();
+        this.toastr.info('Thank you for rating the review :)');
+      },
+      error: (error) => {
+        console.log(error);
+        this.toastr.error(error);
+      },
+    });
   }
 
-  removeStarClass(star: number) {
-    let ab = '';
-    for (let i = star - 1; i >= this.selectedStarValue; i--) {
-      ab = 'starId' + i;
-      let element = document.getElementById(ab) as HTMLElement;
+  removeStarClass() {
+    for (let i = 0; i <= 4; i++) {
+      let starId = 'starId' + i;
+      let element = document.getElementById(starId) as HTMLElement;
       element.classList.remove('selected');
     }
   }
@@ -146,19 +177,17 @@ export class ReviewComponent implements OnInit, OnDestroy {
     const timeAgo = this.getTimeAgo(new Date().getTime());
 
     let commentData = {
-      text: this.reviewComment,
-      rate: this.selectedStarValue,
+      content: this.reviewComment,
       createdTimeAgo: timeAgo,
       authorId: this.currentUser.authorId,
       reviewId: this.reviewId,
     };
 
     if (this.currentUser && this.reviewComment) {
+      
       this.commentList.push(commentData);
-      this.selectedStarValue = 0;
-      this.reviewComment = '';
 
-      console.log(commentData);
+      this.reviewComment = '';
 
       //sending commentDate
       this.reviewService.sendComment(commentData).subscribe({
@@ -167,9 +196,9 @@ export class ReviewComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.log(error);
+          this.toastr.error(error);
         },
       });
-
     } else {
       if (!this.currentUser) this.toastr.warning('Please login first!');
       else if (!this.reviewComment)

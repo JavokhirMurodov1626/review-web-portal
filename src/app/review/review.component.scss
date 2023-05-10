@@ -85,14 +85,6 @@
     color: #ddd;
     padding: 10px 5px;
     cursor: pointer;
-    &:hover {
-      color: #ffd700;
-      ~ {
-        li {
-          color: #ffd700;
-        }
-      }
-    }
   }
   li.selected {
     color: #ffd700;
