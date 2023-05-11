@@ -1,4 +1,6 @@
- <div class="container-fluid account-page">
+ <app-loader *ngIf="isLoading"></app-loader>
+ 
+ <div class="container-fluid account-page" *ngIf="!isLoading">
     <div class="container">
         <div class="row pt-5">
             <div class="col-3 toolbar">
@@ -36,7 +38,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Product Name</th>
-                                    <th scope="col">Rating</th>
+                                    <th scope="col">Average Rating</th>
                                     <th scope="col">Likes</th>
                                     <th scope="col">Group</th>
                                     <th scope="col"></th>
@@ -45,16 +47,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Best practice of galaxy s21 Ultra</td>
-                                    <td>Galaxy s21 Ultra</td>
-                                    <td>8</td>
-                                    <td>20</td>
-                                    <td>Phone</td>
-                                    <td><button class="btn btn-outline-danger">Delete</button></td>
+                                <tr *ngFor="let review of userReviews; let i=index">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{review.title}}</td>
+                                    <td>{{review.product.name}}</td>
+                                    <td>{{review.avgRating}}</td>
+                                    <td>{{review._count.likes}}</td>
+                                    <td>{{review.group}}</td>
+                                    <td><button class="btn btn-outline-danger" (click)="deleteReview(i,review.id)">Delete</button></td>
                                     <td><button class="btn btn-outline-success">Edit</button></td>
-                                    <td><button class="btn btn-outline-primary">View</button></td>
+                                    <td><button class="btn btn-outline-primary" (click)=showReview(review.id)>View</button></td>
                                 </tr>
                             </tbody>
                         </table>
