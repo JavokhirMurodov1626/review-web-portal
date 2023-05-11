@@ -16,6 +16,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   stars: number[] = [1, 2, 3, 4, 5];
   selectedStarValue!: number;
   isLiked: boolean = false;
+  likes!: number;
   reviewId!: number;
   review!: Review;
   formattedDate!: string;
@@ -40,7 +41,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    
     this.route.paramMap.subscribe((params) => {
       if (params) {
         let paramId = params.get('id');
@@ -67,21 +67,25 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
 
         this.review = res.review;
-       
+
         this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
           res.review.content
         );
 
         this.commentList = res.review.comments;
 
+        //checking if the review is likes by current user
         const like = this.review.likes.find((like) => {
           return (
             like.authorId == this.currentUser.authorId &&
             like.reviewId == this.review.id
           );
         });
-        
+
         if (like) this.isLiked = true;
+
+        //assigning the number of likes
+        this.likes = res.review.likes.length;
 
         this.isLoading = false;
       },
@@ -169,18 +173,22 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.isLiked = this.isLiked ? false : true;
 
       if (this.isLiked) {
+        this.likes++;
         this.reviewService.likeReview(data).subscribe({
           next: (res) => this.toastr.info(res.message),
           error: (error) => {
-            this.toastr.error(error)
+            this.likes--;
+            this.toastr.error(error);
             console.log(error);
           },
         });
       } else {
+        this.likes--;
         this.reviewService.unlikeReview(data).subscribe({
           next: (res) => this.toastr.info(res.message),
           error: (error) => {
-            this.toastr.error(error)
+            this.likes++;
+            this.toastr.error(error);
             console.log(error);
           },
         });

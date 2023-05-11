@@ -54,10 +54,11 @@
 }
 .review-comment-box {
   display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 0 30px;
   margin-bottom: 40px;
   .like-btn-wrap {
-    margin-right: 10px;
     cursor: pointer;
     &.active {
       svg {
@@ -68,7 +69,9 @@
       }
     }
   }
-
+  .likes-number p{
+    font-weight: bold;
+  }
   .comment-input {
     flex: 1;
     input {

@@ -12,7 +12,7 @@ import { LoginGuard } from './services/login.guard';
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'reviews/:id', component:ReviewComponent},
-  {path:'account', component:AccountComponent},
+  {path:'users/:id/account', component:AccountComponent,canActivate:[AuthGuard]},
   {path:'create-review', component:CreateReviewComponent,canActivate:[AuthGuard]},
   {path:'login', component:LoginComponent, canActivate:[LoginGuard]},
   {path:'register', component:RegisterComponent,canActivate:[LoginGuard]},
