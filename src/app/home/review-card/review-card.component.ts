@@ -14,7 +14,7 @@ export class ReviewCardComponent implements OnInit{
   review:any
   formattedDate:any
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.formattedDate = new Date(this.bindedReview.createdAt).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',

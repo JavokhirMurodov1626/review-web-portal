@@ -33,9 +33,14 @@ export interface CommentData {
   id?: number;
   content: string;
   authorId?: number;
-  reviewId: number;
-  createdTimeAgo?: string;
+  reviewId?: number;
+  createdAt:string,
+  author?:{
+    name:string,
+    image:string | null
+  }
 }
+
 interface RatingData {
   id?: number;
   value: number;

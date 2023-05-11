@@ -3,7 +3,7 @@ import { ReviewCard } from './reviewCard.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReviewService } from '../services/review.service';
-@Component({
+@Component({ 
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

@@ -67,39 +67,18 @@
             <div class="comment-head">
                 <div class="comment-head__left">
                     <div class="user-image-wrap">
-                        <img src="{{currentUser.image}}" alt="">
+                        <img src="{{comment.author?.image || 'assets/images/default-profile-img.jpg'}}" alt="">
                     </div>
-                    <p class="user-name">{{currentUser.name}}</p>
+                    <p class="user-name">{{comment.author?.name}}</p>
                 </div>
                 <div class="comment-head__right">
                     <p class="comment-create-time">
-                        {{comment.createdTimeAgo}}
+                        {{getTimeAgo(comment.createdAt)}}
                     </p>
                 </div>
             </div>
             <div class="comment-body">
                 {{comment.content}}
-            </div>
-        </div>
-
-        <div class="comment">
-            <div class="comment-head">
-                <div class="comment-head__left">
-                    <div class="user-image-wrap">
-                        <img src="assets/images/profile-image.jpg" alt="">
-                    </div>
-                    <p class="user-name">Murodov Javohir</p>
-                </div>
-                <div class="comment-head__right">
-                    <p class="comment-create-time">
-                        2 days ago
-                    </p>
-                </div>
-            </div>
-            <div class="comment-body">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum iure nam ad recusandae ducimus odit vero
-                quam suscipit tempore vitae eveniet pariatur eum consequatur magnam, distinctio ab laudantium non
-                voluptas!
             </div>
         </div>
     </div>

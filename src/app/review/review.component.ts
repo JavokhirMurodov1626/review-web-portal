@@ -40,7 +40,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
     this.route.paramMap.subscribe((params) => {
       if (params) {
         let paramId = params.get('id');
@@ -52,10 +51,9 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     this.reviewService.getSelectedReview(this.reviewId).subscribe({
       next: (res) => {
-        if (res.review) {
-          this.formattedDate = new Date(
-            res.review.createdAt
-          ).toLocaleDateString('en-US', {
+        this.formattedDate = new Date(res.review.createdAt).toLocaleDateString(
+          'en-US',
+          {
             month: 'short',
             day: 'numeric',
             year:
@@ -63,13 +61,17 @@ export class ReviewComponent implements OnInit, OnDestroy {
               new Date().getFullYear()
                 ? 'numeric'
                 : undefined,
-          });
+          }
+        );
 
-          this.review = res.review;
+        this.review = res.review;
 
-          this.reviewRichTextContent =
-            this.domsanitizer.bypassSecurityTrustHtml(res.review.content);
-        }
+        this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
+          res.review.content
+        );
+
+        this.commentList = res.review.comments;
+
         this.isLoading = false;
         console.log(res);
       },
@@ -124,8 +126,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
     // //sending rating data
     this.reviewService.sendRating(ratingData).subscribe({
       next: (res) => {
-        console.log(res)
-        console.log('ehlloe')
+        console.log(res);
+        console.log('ehlloe');
         this.removeStarClass();
         this.toastr.info('Thank you for rating the review :)');
       },
@@ -149,8 +151,10 @@ export class ReviewComponent implements OnInit, OnDestroy {
     console.log(this.isLiked);
   }
 
-  getTimeAgo(timestamp: number): string {
+  getTimeAgo(time: string): string {
     const now = new Date().getTime();
+
+    const timestamp = new Date(time).getTime();
 
     const seconds = Math.floor((now - timestamp) / 1000);
     if (seconds === 0) return `just now`;
@@ -174,17 +178,16 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   sendComment() {
-    const timeAgo = this.getTimeAgo(new Date().getTime());
+    const timeAgo = this.getTimeAgo(new Date().getTime().toString());
 
     let commentData = {
       content: this.reviewComment,
-      createdTimeAgo: timeAgo,
+      createdAt: new Date().toString(),
       authorId: this.currentUser.authorId,
       reviewId: this.reviewId,
     };
 
     if (this.currentUser && this.reviewComment) {
-      
       this.commentList.push(commentData);
 
       this.reviewComment = '';
