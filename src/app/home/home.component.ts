@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private toastr: ToastrService,
     private reviewService: ReviewService
   ) {}
-
+    
   ngOnInit(): void {
     this.isLoading = true;
     this.reviewService.getLastReviews().subscribe({

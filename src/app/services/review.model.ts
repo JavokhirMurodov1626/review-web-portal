@@ -59,8 +59,8 @@ export interface Rating {
 
 export interface Like {
   id: number;
-  user: User;
-  review: Review;
+  authorId: number;
+  reviewId: number;
 }
 export interface Comment {
   id: number;

@@ -40,6 +40,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    
     this.route.paramMap.subscribe((params) => {
       if (params) {
         let paramId = params.get('id');
@@ -49,6 +50,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
+    // feting selected Review and assigning variables
     this.reviewService.getSelectedReview(this.reviewId).subscribe({
       next: (res) => {
         this.formattedDate = new Date(res.review.createdAt).toLocaleDateString(
@@ -65,15 +67,23 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
 
         this.review = res.review;
-
+       
         this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
           res.review.content
         );
 
         this.commentList = res.review.comments;
 
+        const like = this.review.likes.find((like) => {
+          return (
+            like.authorId == this.currentUser.authorId &&
+            like.reviewId == this.review.id
+          );
+        });
+        
+        if (like) this.isLiked = true;
+
         this.isLoading = false;
-        console.log(res);
       },
       error: (error) => {
         this.toastr.error(error);
@@ -81,6 +91,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
       },
     });
 
+    //getting current user
     this.currentUserSubscription = this.authService.user.subscribe({
       next: (user) => {
         if (user) {
@@ -117,25 +128,27 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.selectedStarValue = star + 1;
 
     //assigning rating data
-    const ratingData = {
-      value: this.selectedStarValue,
-      authorId: this.currentUser.authorId,
-      reviewId: this.review.id,
-    };
+    if (this.currentUser) {
+      const ratingData = {
+        value: this.selectedStarValue,
+        authorId: this.currentUser.authorId,
+        reviewId: this.review.id,
+      };
 
-    // //sending rating data
-    this.reviewService.sendRating(ratingData).subscribe({
-      next: (res) => {
-        console.log(res);
-        console.log('ehlloe');
-        this.removeStarClass();
-        this.toastr.info('Thank you for rating the review :)');
-      },
-      error: (error) => {
-        console.log(error);
-        this.toastr.error(error);
-      },
-    });
+      // //sending rating data
+      this.reviewService.sendRating(ratingData).subscribe({
+        next: (res) => {
+          this.removeStarClass();
+          this.toastr.info('Thank you for rating the review :)');
+        },
+        error: (error) => {
+          console.log(error);
+          this.toastr.error(error);
+        },
+      });
+    } else {
+      this.toastr.warning('Please login first');
+    }
   }
 
   removeStarClass() {
@@ -147,8 +160,34 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   likeReview() {
-    this.isLiked = this.isLiked ? false : true;
-    console.log(this.isLiked);
+    if (this.currentUser) {
+      const data = {
+        authorId: this.currentUser.authorId,
+        reviewId: this.review.id,
+      };
+
+      this.isLiked = this.isLiked ? false : true;
+
+      if (this.isLiked) {
+        this.reviewService.likeReview(data).subscribe({
+          next: (res) => this.toastr.info(res.message),
+          error: (error) => {
+            this.toastr.error(error)
+            console.log(error);
+          },
+        });
+      } else {
+        this.reviewService.unlikeReview(data).subscribe({
+          next: (res) => this.toastr.info(res.message),
+          error: (error) => {
+            this.toastr.error(error)
+            console.log(error);
+          },
+        });
+      }
+    } else {
+      this.toastr.warning('Please login first!');
+    }
   }
 
   getTimeAgo(time: string): string {
@@ -180,23 +219,21 @@ export class ReviewComponent implements OnInit, OnDestroy {
   sendComment() {
     const timeAgo = this.getTimeAgo(new Date().getTime().toString());
 
-    let commentData = {
-      content: this.reviewComment,
-      createdAt: new Date().toString(),
-      authorId: this.currentUser.authorId,
-      reviewId: this.reviewId,
-    };
-
     if (this.currentUser && this.reviewComment) {
+      let commentData = {
+        content: this.reviewComment,
+        createdAt: new Date().toString(),
+        authorId: this.currentUser.authorId,
+        reviewId: this.reviewId,
+      };
+
       this.commentList.push(commentData);
 
       this.reviewComment = '';
 
       //sending commentDate
       this.reviewService.sendComment(commentData).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
+        next: (res) => {},
         error: (error) => {
           console.log(error);
           this.toastr.error(error);

@@ -121,6 +121,40 @@ export class ReviewService {
     );
   }
 
+  likeReview(data:{authorId:number | undefined,reviewId:number}){
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${user?.token}`
+        );
+        return this.http.post<{message:string}>(`${API_URL}/review/:id/like`, data,
+        {
+          headers
+        });
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  unlikeReview(data:{authorId:number | undefined,reviewId:number}){
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${user?.token}`
+        );
+        return this.http.post<{message:string}>(`${API_URL}/review/:id/unlike`, data,
+        {
+          headers
+        });
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(errRes: HttpErrorResponse) {
     let errorMessage = `Unknown Error occured!`;
     if (!errRes.error || !errRes.error.error) {
