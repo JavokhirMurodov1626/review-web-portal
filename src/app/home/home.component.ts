@@ -23,11 +23,9 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         this.lastReviews = res.reviews;
         this.isLoading = false;
-        console.log(res);
       },
       error: (error) => {
         this.isLoading = false;
-        console.log(error);
       },
     });
   }

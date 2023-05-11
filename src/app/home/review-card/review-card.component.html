@@ -7,12 +7,16 @@
         <div class="author-image">
             <img src="{{review.author.image}}" alt="">
         </div>
-        <p class="author-name"> 
+        <p class="author-name">
             {{review.author.name}}
         </p>
         <p class="review-created-time">
             {{review.createdAt}}
         </p>
+    </div>
+    <div class="rating-stars">
+        <app-rating-star [rating]="rating"></app-rating-star>
+        <p><em>({{ratings}}) reviews</em></p> 
     </div>
     <div class="card-body">
         <div class="card-body__left">

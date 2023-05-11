@@ -15,7 +15,6 @@
     img {
       height: 100%;
       border-radius: 50%;
-
     }
   }
   .created-time {
@@ -38,7 +37,7 @@
 .review-title {
   margin-bottom: 0.8rem;
 }
-.product-grade-wrap{
+.product-grade-wrap {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -60,16 +59,16 @@
   .like-btn-wrap {
     margin-right: 10px;
     cursor: pointer;
-    &.active{
-        svg{
-            fill: red;
-            path{
-                stroke: red;
-            }
+    &.active {
+      svg {
+        fill: red;
+        path {
+          stroke: red;
         }
+      }
     }
   }
- 
+
   .comment-input {
     flex: 1;
     input {
@@ -98,7 +97,7 @@
   cursor: pointer;
 }
 .comment {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
   .comment-head {
     display: flex;
     justify-content: space-between;

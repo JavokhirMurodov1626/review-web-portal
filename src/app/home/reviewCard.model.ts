@@ -1,4 +1,5 @@
 import { Tag } from "../services/review.model";
+import { Rating } from "../services/review.model";
 
 export interface Author {
   authorId:number,
@@ -20,6 +21,7 @@ export interface ReviewCard {
   tags: Tag[];
   images: string[];
   createdAt: string;
+  rating:Rating[]
 }
 
 export interface ReviewCardResponse{

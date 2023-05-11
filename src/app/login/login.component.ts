@@ -29,14 +29,12 @@ export class LoginComponent {
     if (!this.loginForm.valid) return;
     this.authService.login(this.userEmail, this.userPassword).subscribe({
       next: (response) => {
-        console.log(response);
         this.isLoading = false;
         this.toastr.success(response.message);
         this.loginForm.reset();
         this.router.navigate(['/']);
       },
       error: (error) => {
-        console.log(error);
         this.toastr.error(error);
         this.isLoading = false;
       },
