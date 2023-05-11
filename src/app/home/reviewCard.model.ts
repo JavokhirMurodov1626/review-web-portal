@@ -1,5 +1,6 @@
 import { Tag } from "../services/review.model";
 import { Rating } from "../services/review.model";
+import { Review } from "../services/review.model";
 
 export interface Author {
   authorId:number,
@@ -26,5 +27,6 @@ export interface ReviewCard {
 
 export interface ReviewCardResponse{
   message:string,
-  reviews:any
-}
+  lastReviews:ReviewCard[],
+  higherGradeReviews:ReviewCard[]
+} 

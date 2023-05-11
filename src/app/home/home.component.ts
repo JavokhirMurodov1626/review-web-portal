@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { ReviewCard } from './reviewCard.model';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReviewService } from '../services/review.service';
@@ -9,8 +9,11 @@ import { ReviewService } from '../services/review.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
   lastReviews: ReviewCard[] = [];
   isLoading: boolean = false;
+  higherGradeReviews!:ReviewCard[]
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -21,7 +24,8 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.reviewService.getLastReviews().subscribe({
       next: (res) => {
-        this.lastReviews = res.reviews;
+        this.lastReviews = res.lastReviews;
+        this.higherGradeReviews=res.higherGradeReviews
         this.isLoading = false;
       },
       error: (error) => {

@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { ReviewCard } from '../reviewCard.model';
 

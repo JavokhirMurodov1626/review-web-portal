@@ -25,7 +25,7 @@ enum AuthProvider {
 export interface Review {
   id: number;
   title: string;
-  descripton: string;
+  description: string;
   productGrade: number;
   author: User;
   product: Product;
@@ -33,7 +33,7 @@ export interface Review {
   tags: Tag[];
   content: string;
   images: string[];
-  rating: Rating;
+  rating: Rating[];
   createdAt: Date;
   updatedAt: Date;
   comments: {
