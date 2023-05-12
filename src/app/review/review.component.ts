@@ -41,7 +41,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    
     this.route.paramMap.subscribe((params) => {
       if (params) {
         let paramId = params.get('id');
@@ -68,7 +67,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
 
         this.review = res.review;
-        console.log(this.review)
+        console.log(res);
         this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
           res.review.content
         );

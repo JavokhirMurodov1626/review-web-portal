@@ -31,23 +31,25 @@ export class EditReviewComponent implements OnInit, OnDestroy {
   reviewDescription!: string;
   reviewedProductName!: string;
   reviewedProductGroup!: string;
-  fetchedReviewImages!: { imageUrl: string; filename: string }[];
-  reviewImages: ImageFile[] = [];
   richtextContent!: string;
   tag: string = '';
   tags!: string[];
   reviewedProductGrade!: number;
+  previousImages!:{imageUrl:string,generation:string,filename:string}[]
+
+  //ckEditor initializing
   public Editor = ClassicEditor;
+
   isSubmitted: boolean = false;
   currentUser!: Subscription;
-  encodedImages!: string[];
+  encodedImages: string[] = [];
   isLoading: boolean = false;
 
   constructor(
     private sanitizer: DomSanitizer,
     private authService: AuthService,
     private reviewService: ReviewService,
-    private encodeImages: EncodeImagesService,
+    private encode: EncodeImagesService,
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute
@@ -67,6 +69,7 @@ export class EditReviewComponent implements OnInit, OnDestroy {
         this.authorId = user.id;
       }
     });
+
     this.isLoading = true;
     //assigning values
     this.reviewService.getSelectedReview(this.reviewId).subscribe({
@@ -75,11 +78,13 @@ export class EditReviewComponent implements OnInit, OnDestroy {
         this.reviewDescription = res.review.description;
         this.reviewedProductName = res.review.product.name;
         this.reviewedProductGroup = res.review.group;
-        this.fetchedReviewImages = res.review.images;
+        this.encodedImages = res.review.images.map((image) => image.imageUrl);
         this.richtextContent = res.review.content;
         this.tags = res.review.tags.map((tag) => tag.name);
         this.reviewedProductGrade = res.review.productGrade;
+        this.previousImages=res.review.images
         this.isLoading = false;
+        console.log(res.review);
       },
       error: (error) => {
         console.log(error);
@@ -88,7 +93,7 @@ export class EditReviewComponent implements OnInit, OnDestroy {
     });
   }
 
-  onFileChange(event: Event) {
+  async onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
       const image = target.files[0];
@@ -98,16 +103,25 @@ export class EditReviewComponent implements OnInit, OnDestroy {
           window.URL.createObjectURL(image)
         ),
       };
-      this.reviewImages.push(imageFile);
+
+      const codedImageFile = await this.encode.convertFileToBase64(
+        imageFile.file
+      );
+
+      this.encodedImages.push(codedImageFile);
     }
   }
 
   removeImage(id: number) {
-    this.reviewImages.splice(id, 1);
+    this.encodedImages.splice(id, 1);
   }
 
-  onGetDroppedFiles(files: ImageFile[]) {
-    this.reviewImages.push(...files);
+  async onGetDroppedFiles(files: ImageFile[]) {
+    const codedImages = await this.encode.encodeImages(files);
+
+    this.encodedImages.push(...codedImages);
+
+    console.log(this.encodedImages);
   }
 
   getTag() {
@@ -128,18 +142,7 @@ export class EditReviewComponent implements OnInit, OnDestroy {
     this.tags = [];
   }
 
-  async handleEncodeImages(images: ImageFile[]) {
-    try {
-      const result = await this.encodeImages.encodeImages(images);
-      this.encodedImages = result;
-    } catch (error) {
-      console.error('Error encoding images:', error);
-    }
-  }
-
   async onSubmit() {
-    await this.handleEncodeImages(this.reviewImages);
-
     const reviewData = {
       authorId: this.authorId,
       title: this.reviewTitle,
@@ -150,27 +153,28 @@ export class EditReviewComponent implements OnInit, OnDestroy {
       tags: this.tags,
       images: this.encodedImages,
       productGrade: this.reviewedProductGrade,
+      previousImages:this.previousImages,
     };
-    
-    this.isSubmitted = true;
-    this.isLoading = true;
+    console.log(this.previousImages);
+    // this.isSubmitted = true;
+    // this.isLoading = true;
 
-    if (this.reviewFrom.form.valid) {
-      this.reviewService.createReview(reviewData).subscribe({
-        next: (res) => {
-          this.isLoading = false;
-          this.toastr.success(res.message);
-          this.reviewFrom.reset();
-          this.reviewImages = [];
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          this.toastr.error(error);
-          this.isLoading = false;
-          console.log(error);
-        },
-      });
-    }
+    // if (this.reviewFrom.form.valid) {
+    //   this.reviewService.createReview(reviewData).subscribe({
+    //     next: (res) => {
+    //       this.isLoading = false;
+    //       this.toastr.success(res.message);
+    //       this.reviewFrom.reset();
+    //       this.reviewImages = [];
+    //       this.router.navigate(['/']);
+    //     },
+    //     error: (error) => {
+    //       this.toastr.error(error);
+    //       this.isLoading = false;
+    //       console.log(error);
+    //     },
+    //   });
+    // }
   }
 
   ngOnDestroy(): void {

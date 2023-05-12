@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { take, exhaustMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { Rating, Review } from './review.model';
+import { Review } from './review.model';
 import { ReviewCardResponse } from '../home/reviewCard.model';
 
 export interface generatedReview {

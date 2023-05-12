@@ -5,6 +5,7 @@ import { ImageFile } from '../create-review/create-review.component';
   providedIn: 'root',
 })
 export class EncodeImagesService {
+  
   convertFileToBase64(file: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       const reader = new FileReader();

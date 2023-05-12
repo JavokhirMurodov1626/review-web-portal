@@ -55,13 +55,13 @@
                     name="review-images" id="images-upload" #reviewImagesModel="ngModel">
             </div>
 
-            <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && reviewImages.length<1">
+            <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && encodedImages.length<1">
                 Please Upload at least one image</span>
 
             <div class="images-grid mb-3">
-                <div class="review-img-wrap" *ngFor="let img of reviewImages; let i=index;">
+                <div class="review-img-wrap" *ngFor="let img of encodedImages; let i=index;">
                     <span class="remove-btn" (click)="removeImage(i)">x</span>
-                    <img [src]="img.url" alt="" class="review-img">
+                    <img [src]="img" alt="" class="review-img">
                 </div>
             </div>
 
