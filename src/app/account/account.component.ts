@@ -31,7 +31,7 @@ export class AccountComponent implements OnInit {
       },
 
       error: (error) => {
-        console.log(error);
+        
         this.isLoading = false;
       },
     });
@@ -62,12 +62,10 @@ export class AccountComponent implements OnInit {
     //delete from database second
     this.accountService.deleteReview(reviewId).subscribe({
       next: (res) => {
-        console.log(res);
         this.toastr.warning('You have deleted one of your reviews!');
       },
 
       error: (error) => {
-        console.log(error);
         this.toastr.error(error);
         this.userReviews.splice(index, 0, deletedReview[0]);
       },

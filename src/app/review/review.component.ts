@@ -1,5 +1,5 @@
 import { AuthService } from './../services/auth.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit ,AfterViewChecked} from '@angular/core';
 import { CommentData, ReviewService } from '../services/review.service';
 import { Review } from '../services/review.model';
 import { ToastrService } from 'ngx-toastr';
@@ -12,9 +12,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
 })
-export class ReviewComponent implements OnInit, OnDestroy {
+export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
   stars: number[] = [1, 2, 3, 4, 5];
-  selectedStarValue!: number;
+  reviewRate!: number;
   isLiked: boolean = false;
   likes!: number;
   reviewId!: number;
@@ -67,7 +67,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
 
         this.review = res.review;
-        console.log(res);
+        
         this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
           res.review.content
         );
@@ -87,6 +87,15 @@ export class ReviewComponent implements OnInit, OnDestroy {
         //assigning the number of likes
         this.likes = res.review.likes.length;
 
+        //getting current user's rate to the review
+        const rate = this.review.rating.find((rating) => {
+          return (
+            rating.authorId == this.currentUser.authorId &&
+            rating.reviewId == this.review.id
+          );
+        });
+
+        if (rate) this.reviewRate = rate.value;
         this.isLoading = false;
       },
       error: (error) => {
@@ -109,11 +118,10 @@ export class ReviewComponent implements OnInit, OnDestroy {
     });
   }
 
-  countStar(star: number) {
-    this.selectedStarValue = star;
+  ngAfterViewChecked(){
+    this.addStarClass(this.reviewRate-1)
   }
 
-  // making rating star
   addStarClass(star: number) {
     let starId = '';
 
@@ -129,12 +137,16 @@ export class ReviewComponent implements OnInit, OnDestroy {
       element.classList.remove('selected');
     }
     // assigning user rate
-    this.selectedStarValue = star + 1;
+    this.reviewRate = star + 1;
+  }
+  // making rating star
+  rateReview(star: number) {
+    this.addStarClass(star);
 
     //assigning rating data
     if (this.currentUser) {
       const ratingData = {
-        value: this.selectedStarValue,
+        value: this.reviewRate,
         authorId: this.currentUser.authorId,
         reviewId: this.review.id,
       };
@@ -142,24 +154,14 @@ export class ReviewComponent implements OnInit, OnDestroy {
       // //sending rating data
       this.reviewService.sendRating(ratingData).subscribe({
         next: (res) => {
-          this.removeStarClass();
           this.toastr.info('Thank you for rating the review :)');
         },
         error: (error) => {
-          console.log(error);
           this.toastr.error(error);
         },
       });
     } else {
       this.toastr.warning('Please login first');
-    }
-  }
-
-  removeStarClass() {
-    for (let i = 0; i <= 4; i++) {
-      let starId = 'starId' + i;
-      let element = document.getElementById(starId) as HTMLElement;
-      element.classList.remove('selected');
     }
   }
 
@@ -179,7 +181,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
           error: (error) => {
             this.likes--;
             this.toastr.error(error);
-            console.log(error);
           },
         });
       } else {
@@ -189,7 +190,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
           error: (error) => {
             this.likes++;
             this.toastr.error(error);
-            console.log(error);
           },
         });
       }
@@ -243,7 +243,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.reviewService.sendComment(commentData).subscribe({
         next: (res) => {},
         error: (error) => {
-          console.log(error);
           this.toastr.error(error);
         },
       });

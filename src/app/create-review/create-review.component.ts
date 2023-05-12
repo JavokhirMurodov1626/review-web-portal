@@ -119,7 +119,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
       images: this.encodedImages,
       productGrade: +this.reviewedProductGrade,
     };
-    console.log(this.encodeImages)
+   
     this.isSubmitted = true;
     this.isLoading=true;
 
@@ -135,7 +135,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.toastr.error(error);
           this.isLoading = false;
-          console.log(error)
+         
         },
       });
     }

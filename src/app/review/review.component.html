@@ -35,8 +35,8 @@
                 <ul class="list-inline rating-list" *ngFor="let star of stars; let i= index"
                     style="display: inline-block">
 
-                    <li id="{{'starId'+i}}" (click)="addStarClass(i)">
-                        <span class="fa fa-star" [ngClass]="{'checked': (star <= selectedStarValue)}"></span>
+                    <li id="{{'starId'+i}}" (click)="rateReview(i)">
+                        <span class="fa fa-star" [ngClass]="{'checked': (star <= reviewRate)}"></span>
                     </li>
 
                 </ul>

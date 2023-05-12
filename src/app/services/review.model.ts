@@ -32,14 +32,19 @@ export interface Review {
   group: string;
   tags: Tag[];
   content: string;
-  images: {id:number,imageUrl:string,filename:string,generation:string}[];
+  images: {
+    id: number;
+    imageUrl: string;
+    filename: string;
+    generation: string;
+  }[];
   rating: Rating[];
   createdAt: Date;
   updatedAt: Date;
   comments: {
     content: string;
-    author: { name: string; image: string | null },
-    createdAt:string
+    author: { name: string; image: string | null };
+    createdAt: string;
   }[];
   likes: Like[];
 }
@@ -53,8 +58,8 @@ export interface Product {
 export interface Rating {
   id: number;
   value: number;
-  author: User;
-  review: Review;
+  authorId: number;
+  reviewId: number;
 }
 
 export interface Like {

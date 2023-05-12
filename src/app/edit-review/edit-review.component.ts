@@ -86,7 +86,6 @@ export class EditReviewComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       },
       error: (error) => {
-        console.log(error);
         this.isLoading = false;
       },
     });
@@ -169,7 +168,7 @@ export class EditReviewComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.toastr.error(error);
           this.isLoading = false;
-          console.log(error);
+       
         },
       });
     }

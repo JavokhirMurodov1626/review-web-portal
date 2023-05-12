@@ -32,13 +32,11 @@ export class RegisterComponent {
       .subscribe({
         next: (response: AuthResponse) => {
           this.toastr.success(response.message);
-          console.log(response);
           this.isLoading = false;
           this.router.navigate(['/login'])
         },
         error: (error: string) => {
           this.toastr.error(error);
-          console.log(error)
           this.isLoading = false;
         },
       });
