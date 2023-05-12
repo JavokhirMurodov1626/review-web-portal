@@ -3,11 +3,11 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AuthService } from '../services/auth.service';
 import { ReviewService } from '../services/review.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export interface ImageFile {
   file: File;
@@ -123,7 +123,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
     this.isLoading=true;
 
-    if (this.reviewFrom.form.valid) {
+    if (this.reviewFrom.form.valid) { 
       this.reviewService.createReview(reviewData).subscribe({
         next: (res) => {
           this.isLoading = false;
