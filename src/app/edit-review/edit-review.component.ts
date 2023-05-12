@@ -84,7 +84,6 @@ export class EditReviewComponent implements OnInit, OnDestroy {
         this.reviewedProductGrade = res.review.productGrade;
         this.previousImages=res.review.images
         this.isLoading = false;
-        console.log(res.review);
       },
       error: (error) => {
         console.log(error);
@@ -120,8 +119,6 @@ export class EditReviewComponent implements OnInit, OnDestroy {
     const codedImages = await this.encode.encodeImages(files);
 
     this.encodedImages.push(...codedImages);
-
-    console.log(this.encodedImages);
   }
 
   getTag() {
@@ -144,6 +141,7 @@ export class EditReviewComponent implements OnInit, OnDestroy {
 
   async onSubmit() {
     const reviewData = {
+      reviewId:this.reviewId,
       authorId: this.authorId,
       title: this.reviewTitle,
       productName: this.reviewedProductName,
@@ -155,26 +153,26 @@ export class EditReviewComponent implements OnInit, OnDestroy {
       productGrade: this.reviewedProductGrade,
       previousImages:this.previousImages,
     };
-    console.log(this.previousImages);
-    // this.isSubmitted = true;
-    // this.isLoading = true;
 
-    // if (this.reviewFrom.form.valid) {
-    //   this.reviewService.createReview(reviewData).subscribe({
-    //     next: (res) => {
-    //       this.isLoading = false;
-    //       this.toastr.success(res.message);
-    //       this.reviewFrom.reset();
-    //       this.reviewImages = [];
-    //       this.router.navigate(['/']);
-    //     },
-    //     error: (error) => {
-    //       this.toastr.error(error);
-    //       this.isLoading = false;
-    //       console.log(error);
-    //     },
-    //   });
-    // }
+    this.isSubmitted = true;
+    this.isLoading = true;
+
+    if (this.reviewFrom.form.valid) {
+      this.reviewService.editReview(reviewData).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          this.toastr.success(res.message);
+          this.reviewFrom.reset();
+          this.encodedImages = [];
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.toastr.error(error);
+          this.isLoading = false;
+          console.log(error);
+        },
+      });
+    }
   }
 
   ngOnDestroy(): void {

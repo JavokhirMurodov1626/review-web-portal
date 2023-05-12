@@ -32,7 +32,7 @@ export interface Review {
   group: string;
   tags: Tag[];
   content: string;
-  images: {imageUrl:string,filename:string,generation:string}[];
+  images: {id:number,imageUrl:string,filename:string,generation:string}[];
   rating: Rating[];
   createdAt: Date;
   updatedAt: Date;

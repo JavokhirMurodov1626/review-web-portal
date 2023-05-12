@@ -13,6 +13,7 @@ import { Review } from './review.model';
 import { ReviewCardResponse } from '../home/reviewCard.model';
 
 export interface generatedReview {
+  reviewId?:number,
   authorId: number;
   title: string;
   productName: string;
@@ -22,6 +23,7 @@ export interface generatedReview {
   images?: string[];
   content: string;
   tags: string[];
+  previousImages?:{filename:string,imageUrl:string,generation:string}[]
 }
 
 export interface ReviewResponse {
@@ -74,7 +76,7 @@ export class ReviewService {
 
   getLastReviews() {
     return this.http
-      .get<ReviewCardResponse>(`${API_URL}/review`)
+      .get<ReviewCardResponse>(`http://localhost:3000/review`)
       .pipe(catchError(this.handleError));
   }
 
@@ -155,6 +157,24 @@ export class ReviewService {
     );
   }
 
+  editReview(reviewData:generatedReview){
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${user?.token}`
+        );
+        return this.http.post<any>(`${API_URL}/users/:id/account/reviews/:id/edit`, reviewData,
+        {
+          headers
+        });
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  
   private handleError(errRes: HttpErrorResponse) {
     let errorMessage = `Unknown Error occured!`;
     if (!errRes.error || !errRes.error.error) {

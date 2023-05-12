@@ -32,7 +32,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <table class="table table-striped">
+                        <table class="table table-striped" >
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -46,7 +46,7 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="userReviews.length>0">
                                 <tr *ngFor="let review of userReviews; let i=index">
                                     <th scope="row">{{i+1}}</th>
                                     <td>{{review.title}}</td>
@@ -60,6 +60,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <p class="text-center m-4" *ngIf="userReviews.length==0">You have no created reviews!</p>
                     </div>
                 </div>
             </div>
