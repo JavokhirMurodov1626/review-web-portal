@@ -9,6 +9,6 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   styleUrls: ['./swiper.component.scss'],
 })
 export class SwiperComponent {
-  @Input() reviewImages:string[]=[]
+  @Input() reviewImages:{imageUrl:string,filename:string}[]=[]
   
 }

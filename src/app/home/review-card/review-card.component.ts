@@ -53,7 +53,7 @@ export class ReviewCardComponent implements OnInit {
       group: this.bindedReview.group,
       product: this.bindedReview.product.name,
       tags: this.bindedReview.tags.map((tag) => tag.name),
-      image: this.bindedReview.images[0],
+      image: this.bindedReview.images[0]?.imageUrl,
       createdAt: this.formattedDate,
     };
   }

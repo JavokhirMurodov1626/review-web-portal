@@ -20,7 +20,7 @@ export interface ReviewCard {
   group: string;
   product: Product;
   tags: Tag[];
-  images: string[];
+  images: {imageUrl:string,filename:string}[];
   createdAt: string;
   rating:Rating[]
 }

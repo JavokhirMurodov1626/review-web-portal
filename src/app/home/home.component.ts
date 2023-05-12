@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     this.reviewService.getLastReviews().subscribe({
       next: (res) => {
         this.lastReviews = res.lastReviews;
-        this.higherGradeReviews=res.higherGradeReviews
+        this.higherGradeReviews=res.higherGradeReviews;
         this.isLoading = false;
       },
       error: (error) => {

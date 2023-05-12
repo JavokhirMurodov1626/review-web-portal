@@ -20,6 +20,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { RatingStarComponent } from './shared/rating-star/rating-star.component';
+import { EditReviewComponent } from './edit-review/edit-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { RatingStarComponent } from './shared/rating-star/rating-star.component'
     ReviewCardComponent,
     LoaderComponent,
     RegisterComponent,
-    RatingStarComponent
+    RatingStarComponent,
+    EditReviewComponent
   ],
   imports: [
     BrowserModule,

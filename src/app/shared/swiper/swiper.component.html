@@ -2,6 +2,6 @@
     [navigation]="true" [pagination]="{ clickable: true }" [scrollbar]="{ draggable: true }">
 
     <ng-template swiperSlide *ngFor="let image of reviewImages">
-        <img src="{{image}}" alt="">
+        <img src="{{image.imageUrl}}" alt="">
     </ng-template>
 </swiper>

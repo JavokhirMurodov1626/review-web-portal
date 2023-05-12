@@ -1,3 +1,4 @@
+import { Review } from './../services/review.model';
 import { EncodeImagesService } from './../services/uploadImages.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
@@ -7,7 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AuthService } from '../services/auth.service';
 import { ReviewService } from '../services/review.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 export interface ImageFile {
   file: File;
@@ -15,12 +16,32 @@ export interface ImageFile {
 }
 
 @Component({
-  selector: 'app-create-review',
-  templateUrl: './create-review.component.html',
-  styleUrls: ['./create-review.component.scss'],
+  selector: 'app-edit-review',
+  templateUrl: './edit-review.component.html',
+  styleUrls: ['./edit-review.component.scss'],
 })
-export class CreateReviewComponent implements OnInit, OnDestroy {
+export class EditReviewComponent implements OnInit, OnDestroy {
   @ViewChild('f') reviewFrom!: NgForm;
+
+  //review inputs
+  authorId!: number;
+  reviewId!: number;
+  //
+  reviewTitle!: string;
+  reviewDescription!: string;
+  reviewedProductName!: string;
+  reviewedProductGroup!: string;
+  fetchedReviewImages!: { imageUrl: string; filename: string }[];
+  reviewImages: ImageFile[] = [];
+  richtextContent!: string;
+  tag: string = '';
+  tags!: string[];
+  reviewedProductGrade!: number;
+  public Editor = ClassicEditor;
+  isSubmitted: boolean = false;
+  currentUser!: Subscription;
+  encodedImages!: string[];
+  isLoading: boolean = false;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -28,31 +49,42 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
     private reviewService: ReviewService,
     private encodeImages: EncodeImagesService,
     private toastr: ToastrService,
-    private router:Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  //review inputs
-  authorId!: number;
-  reviewTitle: string = '';
-  reviewDescription!: string;
-  reviewedProductName: string = '';
-  reviewedProductGroup: string = '';
-  reviewImages: ImageFile[] = [];
-  richtextContent: string = '';
-  tag: string = '';
-  tags: string[] = [];
-  reviewedProductGrade: string = '';
-  public Editor = ClassicEditor;
-  isSubmitted: boolean = false;
-  currentUser!: Subscription;
-  encodedImages!: string[];
-  isLoading:boolean=false;
-
   ngOnInit() {
+    //getting reviewId from route
+    this.route.paramMap.subscribe((params) => {
+      if (params) {
+        let paramId = params.get('id');
+        this.reviewId = paramId ? +paramId : 0;
+      }
+    });
+
     this.currentUser = this.authService.user.subscribe((user) => {
       if (user) {
         this.authorId = user.id;
       }
+    });
+    this.isLoading = true;
+    //assigning values
+    this.reviewService.getSelectedReview(this.reviewId).subscribe({
+      next: (res) => {
+        this.reviewTitle = res.review.title;
+        this.reviewDescription = res.review.description;
+        this.reviewedProductName = res.review.product.name;
+        this.reviewedProductGroup = res.review.group;
+        this.fetchedReviewImages = res.review.images;
+        this.richtextContent = res.review.content;
+        this.tags = res.review.tags.map((tag) => tag.name);
+        this.reviewedProductGrade = res.review.productGrade;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
     });
   }
 
@@ -117,11 +149,11 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
       content: this.richtextContent,
       tags: this.tags,
       images: this.encodedImages,
-      productGrade: +this.reviewedProductGrade,
+      productGrade: this.reviewedProductGrade,
     };
-    console.log(this.encodeImages)
+    
     this.isSubmitted = true;
-    this.isLoading=true;
+    this.isLoading = true;
 
     if (this.reviewFrom.form.valid) {
       this.reviewService.createReview(reviewData).subscribe({
@@ -129,13 +161,13 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.toastr.success(res.message);
           this.reviewFrom.reset();
-          this.reviewImages=[]
+          this.reviewImages = [];
           this.router.navigate(['/']);
         },
         error: (error) => {
           this.toastr.error(error);
           this.isLoading = false;
-          console.log(error)
+          console.log(error);
         },
       });
     }

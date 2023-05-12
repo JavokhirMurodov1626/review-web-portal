@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService, UserReview } from '../services/account.service';
-import { Router } from '@angular/router';
-import {  ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account',
@@ -13,7 +13,12 @@ export class AccountComponent implements OnInit {
 
   userReviews!: UserReview[];
 
-  constructor(private accountService: AccountService, private router: Router,private toastr:ToastrService) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -40,7 +45,7 @@ export class AccountComponent implements OnInit {
 
       const avgRate = Math.round(sumRateValues / review._count.rating);
 
-      review.avgRating = avgRate;
+      review.avgRating = avgRate || 0;
 
       return review;
     });
@@ -52,24 +57,26 @@ export class AccountComponent implements OnInit {
 
   deleteReview(index: number, reviewId: number) {
     //delete from UI first
-    const deletedReview:UserReview[] = this.userReviews.splice(index, 1);
+    const deletedReview: UserReview[] = this.userReviews.splice(index, 1);
 
     //delete from database second
     this.accountService.deleteReview(reviewId).subscribe({
-
       next: (res) => {
         console.log(res);
-        this.toastr.warning('You have deleted one of your reviews!')
+        this.toastr.warning('You have deleted one of your reviews!');
       },
 
       error: (error) => {
         console.log(error);
         this.toastr.error(error);
-        this.userReviews.splice(index,0,deletedReview[0])
+        this.userReviews.splice(index, 0, deletedReview[0]);
       },
-
     });
   }
-  
-}
 
+  editReview(reviewId: number) {
+    this.router.navigate([`reviews/${reviewId}/edit`], {
+      relativeTo: this.route,
+    });
+  }
+}
