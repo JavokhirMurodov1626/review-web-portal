@@ -26,12 +26,13 @@ export class AccountComponent implements OnInit {
     this.accountService.getUserReviews().subscribe({
       next: (res) => {
         this.userReviews = this.calculateAvg(res.reviews);
-
+        console.log(this.userReviews);
+        //apply default sort
+        this.userReviews = this.userReviews.sort(this.sortByTitle);
         this.isLoading = false;
       },
 
       error: (error) => {
-        
         this.isLoading = false;
       },
     });
@@ -76,5 +77,45 @@ export class AccountComponent implements OnInit {
     this.router.navigate([`reviews/${reviewId}/edit`], {
       relativeTo: this.route,
     });
+  }
+
+  sortByTitle = (a: UserReview, b: UserReview) => {
+    const nameA = a.title.toLowerCase();
+    const nameB = b.title.toLowerCase();
+
+    // Remove quotes from the product names for comparison
+    const nameAWithoutQuotes = nameA.replace(/['"]+/g, '');
+    const nameBWithoutQuotes = nameB.replace(/['"]+/g, '');
+
+    if (nameAWithoutQuotes < nameBWithoutQuotes) {
+      return -1;
+    }
+    if (nameAWithoutQuotes > nameBWithoutQuotes) {
+      return 1;
+    }
+    return 0;
+  };
+
+  sortByLikesDescending = (a: UserReview, b: UserReview) => {
+    return b._count.likes - a._count.likes;
+  };
+
+  sortByAvgRatingDescending = (a: UserReview, b: UserReview) => {
+    if (a.avgRating && b.avgRating) {
+      return b.avgRating - a.avgRating;
+    }
+    return 0;
+  };
+
+  handleSortReviews(event: Event) {
+    const target = event.target as HTMLSelectElement;
+
+    if (target.value == 'byLikes') {
+      this.userReviews = this.userReviews.sort(this.sortByLikesDescending);
+    } else if (target.value == 'byRating') {
+      this.userReviews = this.userReviews.sort(this.sortByAvgRatingDescending);
+    } else if (target.value == 'byTitle') {
+      this.userReviews = this.userReviews.sort(this.sortByTitle);
+    }
   }
 }
