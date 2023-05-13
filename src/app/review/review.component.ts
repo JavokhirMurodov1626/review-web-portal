@@ -225,7 +225,7 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
   }
 
   sendComment() {
-    const timeAgo = this.getTimeAgo(new Date().getTime().toString());
+    // const timeAgo = this.getTimeAgo(new Date().getTime().toString());
 
     if (this.currentUser && this.reviewComment) {
       let commentData = {
@@ -233,15 +233,19 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
         createdAt: new Date().toString(),
         authorId: this.currentUser.authorId,
         reviewId: this.reviewId,
+        author:{
+          name:this.currentUser.name,
+          image:this.currentUser.image
+        }
       };
 
       this.commentList.push(commentData);
 
-      this.reviewComment = '';
-
       //sending commentDate
       this.reviewService.sendComment(commentData).subscribe({
-        next: (res) => {},
+        next: (res) => {
+          this.reviewComment = '';
+        },
         error: (error) => {
           this.toastr.error(error);
         },
