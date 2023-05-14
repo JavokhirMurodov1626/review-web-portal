@@ -1,28 +1,19 @@
- <app-loader *ngIf="isLoading"></app-loader>
- 
- <div class="container-fluid account-page" *ngIf="!isLoading">
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div class="container-fluid account-page" *ngIf="!isLoading">
     <div class="container">
         <div class="row pt-5">
             <div class="col-3 toolbar">
                 <h5 class="mb-3">Filters</h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                        Games
-                        </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Books
-                    </label> 
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Movies
-                    </label> 
-                  </div>
+
+                <div class="form-check filters-list" *ngFor="let option of  options; let i=index">
+                    <input class="form-check-input" type="checkbox" id="{{option.name}}"
+                        [(ngModel)]="option.selected"  (change)="applyFilter()">
+                    <label class="form-check-label" for="{{option.name}}">
+                        {{option.name}}
+                    </label>
+                </div>
+
             </div>
             <div class="col-9">
                 <div class="row">
@@ -30,15 +21,16 @@
                         <h5>Sort By:</h5>
                         <select name="" id="" class="form-select sort-select" (change)="handleSortReviews($event)">
                             <option value="byTitle">Title A-Z</option>
-                            <option value="byLikes" >Most Liked</option>
+                            <option value="byLikes">Most Liked</option>
                             <option value="byRating">Rating</option>
                         </select>
-                        <button class="btn btn-primary review-create-btn" [routerLink]="['/create-review']">+ Write a Review</button>
+                        <button class="btn btn-primary review-create-btn" [routerLink]="['/create-review']">+ Write a
+                            Review</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <table class="table table-striped" >
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -53,16 +45,19 @@
                                 </tr>
                             </thead>
                             <tbody *ngIf="userReviews.length>0">
-                                <tr *ngFor="let review of userReviews; let i=index">
+                                <tr *ngFor="let review of filteredReviews; let i=index">
                                     <th scope="row">{{i+1}}</th>
                                     <td>{{review.title}}</td>
                                     <td>{{review.product.name}}</td>
                                     <td>{{review.avgRating}}</td>
                                     <td>{{review._count.likes}}</td>
                                     <td>{{review.group}}</td>
-                                    <td><button class="btn btn-outline-danger" (click)="deleteReview(i,review.id)">Delete</button></td>
-                                    <td><button class="btn btn-outline-success" (click)="editReview(review.id)">Edit</button></td>
-                                    <td><button class="btn btn-outline-primary" (click)=showReview(review.id)>View</button></td>
+                                    <td><button class="btn btn-outline-danger"
+                                            (click)="deleteReview(i,review.id)">Delete</button></td>
+                                    <td><button class="btn btn-outline-success"
+                                            (click)="editReview(review.id)">Edit</button></td>
+                                    <td><button class="btn btn-outline-primary"
+                                            (click)=showReview(review.id)>View</button></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService, UserReview } from '../services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../services/user.model';
 
 @Component({
   selector: 'app-account',
@@ -10,8 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AccountComponent implements OnInit {
   isLoading = false;
-
   userReviews!: UserReview[];
+  filteredReviews: UserReview[] = [];
+
+  options = [
+    { name: 'book', selected: false },
+    { name: 'movie', selected: false },
+    { name: 'game', selected: false },
+  ];
 
   constructor(
     private accountService: AccountService,
@@ -26,9 +33,9 @@ export class AccountComponent implements OnInit {
     this.accountService.getUserReviews().subscribe({
       next: (res) => {
         this.userReviews = this.calculateAvg(res.reviews);
-        console.log(this.userReviews);
-        //apply default sort
-        this.userReviews = this.userReviews.sort(this.sortByTitle);
+
+        this.filteredReviews = this.userReviews.sort(this.sortByTitle);
+
         this.isLoading = false;
       },
 
@@ -104,18 +111,39 @@ export class AccountComponent implements OnInit {
     if (a.avgRating && b.avgRating) {
       return b.avgRating - a.avgRating;
     }
+
     return 0;
   };
+
+  applyFilter() {
+    const filteredItems = this.userReviews.filter((item) => {
+      return this.options.some(
+        (option) => option.selected && option.name === item.group
+      );
+    });
+
+    //if any of options is not checked return default filtered reviews
+    if ((filteredItems.length == 0)) {
+      this.filteredReviews = this.userReviews.sort(this.sortByTitle);
+    } else {
+      this.filteredReviews = filteredItems;
+    }
+    console.log(filteredItems);
+  }
 
   handleSortReviews(event: Event) {
     const target = event.target as HTMLSelectElement;
 
     if (target.value == 'byLikes') {
-      this.userReviews = this.userReviews.sort(this.sortByLikesDescending);
+      this.filteredReviews = this.filteredReviews.sort(
+        this.sortByLikesDescending
+      );
     } else if (target.value == 'byRating') {
-      this.userReviews = this.userReviews.sort(this.sortByAvgRatingDescending);
+      this.filteredReviews = this.filteredReviews.sort(
+        this.sortByAvgRatingDescending
+      );
     } else if (target.value == 'byTitle') {
-      this.userReviews = this.userReviews.sort(this.sortByTitle);
+      this.filteredReviews = this.filteredReviews.sort(this.sortByTitle);
     }
   }
 }
