@@ -35,18 +35,17 @@ export class TagCloud implements OnInit {
     for (let i = 0; i < this.tags.length; i++) {
       let tag = this.tags[i];
 
-      tagMap.set(tag,tagMap.get(tag)?(tagMap.get(tag)+1):1);
-
+      tagMap.set(tag, tagMap.get(tag) ? tagMap.get(tag) + 1 : 1);
     }
 
     //populating tag cloud data
-    this.data=this.tags.map(tag=>{
+    this.data = [...tagMap].map((tagPair) => {
       return {
-        text:tag,
-        weight:tagMap.get(tag)
-      }
-    })
-
+        text: tagPair[0],
+        weight: tagPair[1],
+      };
+    });
+    
   }
 
   logClicked(clicked: CloudData) {

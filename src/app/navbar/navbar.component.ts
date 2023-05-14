@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   userImage!: string | undefined | null;
   userId!: number | undefined;
   userSub: Subscription = new Subscription();
+  
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
@@ -30,7 +31,7 @@ export class NavbarComponent implements OnInit {
   getUserProfile(){
     this.router.navigate([`/users/${this.userId}/account`])
   }
-
+ 
   logout() {
     this.authService.logout();
     this.toastr.info('You have logged out!');
