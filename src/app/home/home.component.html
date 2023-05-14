@@ -18,4 +18,9 @@
         <app-review-card *ngFor="let review of higherGradeReviews;" [bindedReview]="review"></app-review-card>
     </section>
 
+    <section>
+        <h2 class="mb-3">Cloud tags</h2>
+        <app-tag-cloud [tags]="tags"></app-tag-cloud>
+
+    </section>
 </div>

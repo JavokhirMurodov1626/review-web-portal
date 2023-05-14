@@ -1,0 +1,77 @@
+angular-tag-cloud.custom-css {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* no decoration for links */
+::ng-deep angular-tag-cloud.custom-css a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* font sizes */
+::ng-deep angular-tag-cloud.custom-css span.w10 {
+  font-size: 460%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w9 {
+  font-size: 410%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w8 {
+  font-size: 380%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w7 {
+  font-size: 330%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w6 {
+  font-size: 270%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w5 {
+  font-size: 260%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w4 {
+  font-size: 210%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w3 {
+  font-size: 190%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w2 {
+  font-size: 170%;
+}
+::ng-deep angular-tag-cloud.custom-css span.w1 {
+  font-size: 150%;
+}
+::ng-deep angular-tag-cloud.custom-css .tooltiptext {
+  font-size: 12px;
+}
+
+/* colors */
+::ng-deep angular-tag-cloud.custom-css span.w10 {
+  color: #0cf;
+}
+::ng-deep angular-tag-cloud.custom-css span.w9 {
+  color: #fff;
+}
+::ng-deep angular-tag-cloud.custom-css span.w8 {
+  color: rgb(255, 0, 195);
+}
+::ng-deep angular-tag-cloud.custom-css span.w7 {
+  color: rgb(36, 154, 116);
+}
+::ng-deep angular-tag-cloud.custom-css span.w6 {
+  color: #e8f090;
+}
+::ng-deep angular-tag-cloud.custom-css span.w5 {
+  color: #c3dd90;
+}
+::ng-deep angular-tag-cloud.custom-css span.w4 {
+  color: #f09090;
+}
+::ng-deep angular-tag-cloud.custom-css span.w3 {
+  color: #f2ea10;
+}
+::ng-deep angular-tag-cloud.custom-css span.w2 {
+  color: #ee99e7;
+}
+::ng-deep angular-tag-cloud.custom-css span.w1 {
+  color: #18cb42;
+}

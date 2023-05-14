@@ -21,6 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { RatingStarComponent } from './shared/rating-star/rating-star.component';
 import { EditReviewComponent } from './edit-review/edit-review.component';
+import { TagCloud } from './tag-cloud/tag-cloud.component';
+import { TagCloudComponent } from 'angular-tag-cloud-module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { EditReviewComponent } from './edit-review/edit-review.component';
     LoaderComponent,
     RegisterComponent,
     RatingStarComponent,
-    EditReviewComponent
+    EditReviewComponent,
+    TagCloud
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { EditReviewComponent } from './edit-review/edit-review.component';
       progressBar:true,
       progressAnimation:'increasing'
     }),
+    TagCloudComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
