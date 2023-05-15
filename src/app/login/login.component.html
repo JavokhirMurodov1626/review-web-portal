@@ -33,11 +33,11 @@
         <div class="mb-3">
             <p class="form-line"><span>Or Login With</span></p>
             <div class="login-options mt-2">
-                <div class="login-option" (click)="loginGoogle()">
+                <div class="login-option" (click)="loginWithGoogle()">
                     <img src="assets/images/google-logo.svg" alt="">
                 </div>
-                <div class="login-option">
-                    <img src="assets/images/facebook-logo.svg" alt="">
+                <div class="login-option" (click)="loginWithGitHub()">
+                    <img src="assets/images/github.svg" alt="">
                 </div>
             </div>
         </div>

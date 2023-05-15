@@ -23,6 +23,7 @@ import { RatingStarComponent } from './shared/rating-star/rating-star.component'
 import { EditReviewComponent } from './edit-review/edit-review.component';
 import { TagCloud } from './tag-cloud/tag-cloud.component';
 import { TagCloudComponent } from 'angular-tag-cloud-module';
+import { AuthSuccessComponent } from './auth-success/auth-success.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { TagCloudComponent } from 'angular-tag-cloud-module';
     RegisterComponent,
     RatingStarComponent,
     EditReviewComponent,
-    TagCloud
+    TagCloud,
+    AuthSuccessComponent
   ],
   imports: [
     BrowserModule,

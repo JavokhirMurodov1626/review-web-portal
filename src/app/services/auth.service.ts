@@ -55,6 +55,14 @@ export class AuthService {
       );
   }
 
+  loginWithGoogle() {
+   window.location.href=`${API_URL}/auth/google`
+  }
+
+  loginWithGitHub() {
+   window.location.href=`${API_URL}/auth/github`
+  }
+
   autoLogIn() {
     const userDate = localStorage.getItem('userData');
     const loadedUser = userDate ? JSON.parse(userDate) : null;
@@ -94,10 +102,6 @@ export class AuthService {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
-  }
-
-  loginWithGoogle(){
-    return this.http.get(`${API_URL}/auth/google`)
   }
 
   private handleError(errRes: HttpErrorResponse) {

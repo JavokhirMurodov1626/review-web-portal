@@ -41,14 +41,12 @@ export class LoginComponent {
     });
   }
 
-  loginGoogle() {
-   this.authService.loginWithGoogle().subscribe({
-    next:res=>{
-      console.log(res)
-    },
-    error:err=>{
-      console.log(err);
-    }
-   })
+  loginWithGoogle() {
+   this.authService.loginWithGoogle()
   }
+
+  loginWithGitHub() {
+   this.authService.loginWithGitHub()
+  }
+
 }
