@@ -30,6 +30,9 @@ export interface ReviewResponse {
   message: string;
   review: Review;
 }
+export interface SearchedReviewResponse {
+  reviews: {id:number,title:string}[];
+}
 
 export interface CommentData {
   id?: number;
@@ -174,7 +177,10 @@ export class ReviewService {
     );
   }
 
-  
+  searchReview(queryString:string){
+    return this.http.post<SearchedReviewResponse>(`${API_URL}/review/search`,{queryString}).pipe(catchError(this.handleError))
+  }
+
   private handleError(errRes: HttpErrorResponse) {
     let errorMessage = `Unknown Error occured!`;
     if (!errRes.error || !errRes.error.error) {

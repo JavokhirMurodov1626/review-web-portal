@@ -1,5 +1,11 @@
 import { AuthService } from './../services/auth.service';
-import { Component, OnDestroy, OnInit, AfterViewInit ,AfterViewChecked} from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  AfterViewInit,
+  AfterViewChecked,
+} from '@angular/core';
 import { CommentData, ReviewService } from '../services/review.service';
 import { Review } from '../services/review.model';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +18,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
 })
-export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
+export class ReviewComponent implements OnInit, OnDestroy, AfterViewChecked {
   stars: number[] = [1, 2, 3, 4, 5];
   reviewRate!: number;
   isLiked: boolean = false;
@@ -67,7 +73,7 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
         );
 
         this.review = res.review;
-        
+
         this.reviewRichTextContent = this.domsanitizer.bypassSecurityTrustHtml(
           res.review.content
         );
@@ -75,27 +81,30 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
         this.commentList = res.review.comments;
 
         //checking if the review is likes by current user
-        const like = this.review.likes.find((like) => {
-          return (
-            like.authorId == this.currentUser.authorId &&
-            like.reviewId == this.review.id
-          );
-        });
+        if (this.currentUser) {
+          const like = this.review.likes.find((like) => {
+            return (
+              like.authorId == this.currentUser.authorId &&
+              like.reviewId == this.review.id
+            );
+          });
 
-        if (like) this.isLiked = true;
+          if (like) this.isLiked = true;
+
+          //getting current user's rate to the review
+          const rate = this.review.rating.find((rating) => {
+            return (
+              rating.authorId == this.currentUser.authorId &&
+              rating.reviewId == this.review.id
+            );
+          });
+
+          if (rate) this.reviewRate = rate.value;
+        }
 
         //assigning the number of likes
         this.likes = res.review.likes.length;
 
-        //getting current user's rate to the review
-        const rate = this.review.rating.find((rating) => {
-          return (
-            rating.authorId == this.currentUser.authorId &&
-            rating.reviewId == this.review.id
-          );
-        });
-
-        if (rate) this.reviewRate = rate.value;
         this.isLoading = false;
       },
       error: (error) => {
@@ -118,26 +127,29 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
     });
   }
 
-  ngAfterViewChecked(){
-    this.addStarClass(this.reviewRate-1)
+  ngAfterViewChecked() {
+    this.addStarClass(this.reviewRate - 1);
   }
 
   addStarClass(star: number) {
     let starId = '';
 
-    for (let i = 0; i < star + 1; i++) {
-      starId = 'starId' + i;
-      let element = document.getElementById(starId) as HTMLElement;
-      element.classList.add('selected');
+    if(this.currentUser){
+      for (let i = 0; i < star + 1; i++) {
+        starId = 'starId' + i;
+        let element = document.getElementById(starId) as HTMLElement;
+        element.classList.add('selected');
+      }
+  
+      for (let i = star + 1; i <= 4; i++) {
+        starId = 'starId' + i;
+        let element = document.getElementById(starId) as HTMLElement;
+        element.classList.remove('selected');
+      }
+      // assigning user rate
+      this.reviewRate = star + 1;
     }
-
-    for (let i = star + 1; i <= 4; i++) {
-      starId = 'starId' + i;
-      let element = document.getElementById(starId) as HTMLElement;
-      element.classList.remove('selected');
-    }
-    // assigning user rate
-    this.reviewRate = star + 1;
+   
   }
   // making rating star
   rateReview(star: number) {
@@ -233,10 +245,10 @@ export class ReviewComponent implements OnInit, OnDestroy,AfterViewChecked {
         createdAt: new Date().toString(),
         authorId: this.currentUser.authorId,
         reviewId: this.reviewId,
-        author:{
-          name:this.currentUser.name,
-          image:this.currentUser.image
-        }
+        author: {
+          name: this.currentUser.name,
+          image: this.currentUser.image,
+        },
       };
 
       this.commentList.push(commentData);

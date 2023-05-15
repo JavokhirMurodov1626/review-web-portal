@@ -1,9 +1,10 @@
 .navbar {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  position: relative;
 }
 
 .user-account-icon {
-  cursor:pointer;
+  cursor: pointer;
   margin-left: 0.8rem;
   width: 40px;
   height: 40px;
@@ -11,5 +12,25 @@
   img {
     height: 100%;
     border-radius: 50%;
+  }
+}
+
+.searched-reviews-container {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  position: absolute;
+  z-index: 11;
+  background-color: #fff;
+  min-width: 200px;
+  margin-top: 10px;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  padding: 16px;
+  .list-item {
+    margin-bottom: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+
   }
 }
