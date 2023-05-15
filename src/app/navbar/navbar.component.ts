@@ -48,12 +48,12 @@ export class NavbarComponent implements OnInit {
     this.reviewService.searchReview(this.searchQuery).subscribe({
       next: (res) => {
         this.searchedReviews=res.reviews;
-        console.log(this.searchedReviews)
       },
       error: (error) => {
         console.log(error);
       },
     });
+   
   }
 
   directToReview(id:number){

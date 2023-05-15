@@ -19,7 +19,7 @@ enum UserRole {
 enum AuthProvider {
   EMAIL,
   GOOGLE,
-  FACEBOOK,
+  GITHUB,
 }
 
 export interface Review {

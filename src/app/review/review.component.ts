@@ -183,7 +183,7 @@ export class ReviewComponent implements OnInit, OnDestroy, AfterViewChecked {
         authorId: this.currentUser.authorId,
         reviewId: this.review.id,
       };
-
+     
       this.isLiked = this.isLiked ? false : true;
 
       if (this.isLiked) {
@@ -193,6 +193,8 @@ export class ReviewComponent implements OnInit, OnDestroy, AfterViewChecked {
           error: (error) => {
             this.likes--;
             this.toastr.error(error);
+            this.isLiked=false;
+           
           },
         });
       } else {
@@ -202,6 +204,8 @@ export class ReviewComponent implements OnInit, OnDestroy, AfterViewChecked {
           error: (error) => {
             this.likes++;
             this.toastr.error(error);
+            this.isLiked=true;
+           
           },
         });
       }

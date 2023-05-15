@@ -114,12 +114,12 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  private handleAuthentication(
+   handleAuthentication(
     userId: number,
     name: string,
     image: string | null,
     token: string,
-    expiresIn: number
+    expiresIn: number,
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 

@@ -128,7 +128,6 @@ export class AccountComponent implements OnInit {
     } else {
       this.filteredReviews = filteredItems;
     }
-    console.log(filteredItems);
   }
 
   handleSortReviews(event: Event) {
