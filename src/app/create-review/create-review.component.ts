@@ -28,7 +28,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
     private reviewService: ReviewService,
     private encodeImages: EncodeImagesService,
     private toastr: ToastrService,
-    private router:Router
+    private router: Router
   ) {}
 
   //review inputs
@@ -45,8 +45,8 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
   public Editor = ClassicEditor;
   isSubmitted: boolean = false;
   currentUser!: Subscription;
-  encodedImages!: string[];
-  isLoading:boolean=false;
+  encodedImages: string[]=[];
+  isLoading: boolean = false;
 
   ngOnInit() {
     this.currentUser = this.authService.user.subscribe((user) => {
@@ -78,7 +78,10 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
     this.reviewImages.push(...files);
   }
 
-  getTag() {
+  getTag(event:KeyboardEvent) {
+    if(event.key==='Enter'){
+      event.preventDefault();
+
     this.tag.replace(/\s+/g, ' ');
     if (this.tag.length > 1 && !this.tags.includes(this.tag)) {
       this.tag.split(',').forEach((tag) => {
@@ -86,6 +89,8 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
         this.tag = '';
       });
     }
+    }
+    
   }
 
   removeTag(index: number) {
@@ -119,26 +124,24 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
       images: this.encodedImages,
       productGrade: +this.reviewedProductGrade,
     };
-   
+    console.log(reviewData);
     this.isSubmitted = true;
-    this.isLoading=true;
-
-    if (this.reviewFrom.form.valid) { 
-      this.reviewService.createReview(reviewData).subscribe({
-        next: (res) => {
-          this.isLoading = false;
-          this.toastr.success(res.message);
-          this.reviewFrom.reset();
-          this.reviewImages=[]
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          this.toastr.error(error);
-          this.isLoading = false;
-         
-        },
-      });
-    }
+    // if (this.reviewFrom.form.valid && this.encodedImages.length > 0) {
+    //   this.isLoading = true;
+    //   this.reviewService.createReview(reviewData).subscribe({
+    //     next: (res) => {
+    //       this.isLoading = false;
+    //       this.toastr.success(res.message);
+    //       this.reviewFrom.reset();
+    //       this.reviewImages = [];
+    //       this.router.navigate(['/']);
+    //     },
+    //     error: (error) => {
+    //       this.toastr.error(error);
+    //       this.isLoading = false;
+    //     },
+    //   });
+    // }
   }
 
   ngOnDestroy(): void {

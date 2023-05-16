@@ -1,4 +1,3 @@
-
 import { Component, Input, OnInit } from '@angular/core';
 import { ReviewCard } from '../reviewCard.model';
 
@@ -37,7 +36,7 @@ export class ReviewCardComponent implements OnInit {
     }, 0);
 
     this.rating = sumRating / ratings;
-    
+
     this.ratings = ratings;
 
     this.review = {

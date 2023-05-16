@@ -1,9 +1,9 @@
+<!-- (keydown.enter)="$event.target !== submitButton && $event.preventDefault()" -->
 <app-loader *ngIf="isLoading"></app-loader>
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()"
-            (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
+        <form  (keydown.enter)="$event.stopPropagation()" class="col-6" #f="ngForm" (ngSubmit)="onSubmit()" >
             <div>
                 <label for="review-title" class="mb-2 fw-bold">Review Title</label>
                 <input class="form-control mb-2" type="text" id="review-title" placeholder="Enter your review title"
@@ -47,7 +47,7 @@
                     *ngIf="productGroup.invalid && productGroup.touched">
                     Product Group name is required!
                 </span>
-            </div>
+            </div> 
 
             <div class="dropzone" appDrag (dropFiles)="onGetDroppedFiles($event)">
                 <span>Drag and drop images or <label class="text-primary" for="images-upload">browse</label> </span>
@@ -55,7 +55,7 @@
                     name="review-images" id="images-upload" #reviewImagesModel="ngModel">
             </div>
 
-            <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && reviewImages.length<1">
+            <span class="error-message mb-2 alert alert-danger" *ngIf="isSubmitted && encodedImages.length==0">
                 Please Upload at least one image</span>
 
             <div class="images-grid mb-3">
@@ -73,13 +73,13 @@
                         <img src="assets/images/Tag.svg" alt="">
                     </div>
                     <label for="tags" class="fw-bold tags-label me-2">tags</label>
-                    <p>(optional)</p>
+                    <!-- <p>(optional)</p> -->
                 </div>
                 <div class="tags-section__main form-control mb-2">
                     <ul>
                         <li *ngFor="let tag of tags; let i=index;"><span>{{tag}}</span><img (click)="removeTag(i)"
                                 src="assets/images/XCircle.svg" alt=""></li>
-                        <input type="text" id="tags" [(ngModel)]="tag" name="tag" (keyup.enter)="getTag()">
+                        <input type="text" id="tags" [(ngModel)]="tag" name="tag" (keydown)="getTag($event)">
                     </ul>
                 </div>
                 <div class="tags-section__bottom">
@@ -91,13 +91,13 @@
             <div class="mb-3 product-grade">
                 <label for="product-grade__title" class=" mb-3 fw-bold">Your grade to the Product</label>
                 <input id="product-grade__title" type="number" class="form-control mb-2" placeholder="from 0 to 10"
-                    [(ngModel)]="reviewedProductGrade" name="product-grade" required max="10" #productGrade="ngModel">
+                    [(ngModel)]="reviewedProductGrade" name="product-grade" required max="10" #productGrade="ngModel" >
                 <span class="error-message mb-2 alert alert-danger"
                     *ngIf="productGrade.invalid && productGrade.touched">
                     Please enter valid grade!</span>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3" [disabled]="f.invalid" #submitButton>Submit</button>
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="f.invalid || reviewImages.length==0 || tags.length==0" #submitButton>Submit</button>
         </form>
     </div>
 </div>

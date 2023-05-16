@@ -22,14 +22,16 @@
     }
   }
   .card-body {
-    display: flex;
-    gap: 2rem;
     .card-body__right {
-      max-width: 35%;
       display: flex;
       align-items: center;
       img {
         width: 100%;
+      }
+    }
+    .card-body__left {
+      .card-body__text {
+        word-wrap: break-word;
       }
     }
     .card-body__title {

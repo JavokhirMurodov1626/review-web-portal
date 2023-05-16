@@ -1,37 +1,43 @@
-<div class="review-card" [routerLink]="['/reviews',review.id]">
-    <div class="review-group">
-        <p>{{review.group}}</p>
-    </div>
-
-    <div class="card-top">
-        <div class="author-image">
-            <img src="{{review.author.image}}" alt="">
+<div class="row">
+    <div class="review-card col-12" [routerLink]="['/reviews',review.id]">
+        <div class="review-group">
+            <p>{{review.group}}</p>
         </div>
-        <p class="author-name">
-            {{review.author.name}}
-        </p>
-        <p class="review-created-time">
-            {{review.createdAt}}
-        </p>
-    </div>
-    <div class="rating-stars">
-        <app-rating-star [rating]="rating"></app-rating-star>
-        <p><em>({{ratings}}) reviews</em></p> 
-    </div>
-    <div class="card-body">
-        <div class="card-body__left">
-            <h3 class="card-body__title">{{review.title}}</h3>
-            <h6 class="card-body__product-name">{{review.product}}</h6>
-            <p class="card-body__text">
-                {{review.description}}
+    
+        <div class="card-top col-12" >
+            <div class="author-image">
+                <img src="{{review.author.image}}" alt="">
+            </div>
+            <p class="author-name">
+                {{review.author.name}}
+            </p>
+            <p class="review-created-time">
+                {{review.createdAt}}
             </p>
         </div>
-        <div class="card-body__right">
-            <img src={{review.image}} alt="">
+        
+        <div class="rating-stars col-12">
+            <app-rating-star [rating]="rating"></app-rating-star>
+            <p><em>({{ratings}}) reviews</em></p> 
         </div>
-    </div>
-    <div class="card-bottom tags">
-        <div class="tag" *ngFor="let tag of review.tags">{{tag}}</div>
-    </div>
+        <div class="card-body col-12">
+            <div class="row">
 
+                <div class="card-body__left col-8" >
+                    <h3 class="card-body__title">{{review.title}}</h3>
+                    <h6 class="card-body__product-name">{{review.product}}</h6>
+                    <p class="card-body__text">
+                        {{review.description}}
+                    </p>
+                </div>
+                <div class="card-body__right col-4">
+                    <img src={{review.image}} alt="">
+                </div>
+            </div>
+        </div>
+        <div class="card-bottom tags col-12">
+            <div class="tag" *ngFor="let tag of review.tags">{{tag}}</div>
+        </div>
+    
+    </div>
 </div>

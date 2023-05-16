@@ -2,8 +2,7 @@
 <div class="container-fluid" *ngIf="!isLoading">
     <div class="container p-2 d-flex align-items-center flex-column">
         <h2 class="text-center text-primary mb-3">Your New Review</h2>
-        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()"
-            (keydown.enter)="$event.target !== submitButton && $event.preventDefault()">
+        <form  class="col-6" #f="ngForm" (ngSubmit)="onSubmit()">
             <div>
                 <label for="review-title" class="mb-2 fw-bold">Review Title</label>
                 <input class="form-control mb-2" type="text" id="review-title" placeholder="Enter your review title"
