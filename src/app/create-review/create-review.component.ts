@@ -124,24 +124,24 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
       images: this.encodedImages,
       productGrade: +this.reviewedProductGrade,
     };
-    console.log(reviewData);
+    
     this.isSubmitted = true;
-    // if (this.reviewFrom.form.valid && this.encodedImages.length > 0) {
-    //   this.isLoading = true;
-    //   this.reviewService.createReview(reviewData).subscribe({
-    //     next: (res) => {
-    //       this.isLoading = false;
-    //       this.toastr.success(res.message);
-    //       this.reviewFrom.reset();
-    //       this.reviewImages = [];
-    //       this.router.navigate(['/']);
-    //     },
-    //     error: (error) => {
-    //       this.toastr.error(error);
-    //       this.isLoading = false;
-    //     },
-    //   });
-    // }
+    if (this.reviewFrom.form.valid && this.encodedImages.length > 0) {
+      this.isLoading = true;
+      this.reviewService.createReview(reviewData).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          this.toastr.success(res.message);
+          this.reviewFrom.reset();
+          this.reviewImages = [];
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.toastr.error(error);
+          this.isLoading = false;
+        },
+      });
+    }
   }
 
   ngOnDestroy(): void {
