@@ -79,7 +79,7 @@ export class ReviewService {
 
   getLastReviews() {
     return this.http
-      .get<ReviewCardResponse>(`http://localhost:3000/review`)
+      .get<ReviewCardResponse>(`${API_URL}/review`)
       .pipe(catchError(this.handleError));
   }
 
