@@ -2,14 +2,14 @@
 <app-loader *ngIf="isLoading"></app-loader>
 <div class="container-fluid">
     <div class="container p-2 d-flex align-items-center flex-column">
-        <h2 class="text-center text-primary mb-3">Your New Review</h2>
+        <h2 class="text-center text-primary mb-3">Your Graduation Work</h2>
         <form  (keydown.enter)="$event.stopPropagation()" class="col-6" #f="ngForm" (ngSubmit)="onSubmit()" >
             <div>
-                <label for="review-title" class="mb-2 fw-bold">Review Title</label>
+                <label for="review-title" class="mb-2 fw-bold">Work Title</label>
                 <input class="form-control mb-2" type="text" id="review-title" placeholder="Enter your review title"
                     [(ngModel)]="reviewTitle" name="review-title" required #reviewTitleNgModel="ngModel">
                 <span class="error-message mb-2 alert alert-danger"
-                    *ngIf="reviewTitleNgModel.invalid && reviewTitleNgModel.touched">Review Title is
+                    *ngIf="reviewTitleNgModel.invalid && reviewTitleNgModel.touched">Work Title is
                      required
                 </span>
             </div>
@@ -18,16 +18,16 @@
                 <label for="product-title" class="mb-2 fw-bold">Product Name</label>
                 <input class="form-control mb-2" type="text" id="product-title" placeholder="Enter product Name"
                     [(ngModel)]="reviewedProductName" name="reviewed-product-name" required #imageInput="ngModel">
-                <span class="error-message mb-2 alert alert-danger" *ngIf="">Reviewed Product Name
+                <span class="error-message mb-2 alert alert-danger" *ngIf=""> Product Name
                     is
                     required
                 </span>
             </div>
             <div>
-                <label for="review-description" class="mb-2 fw-bold">Small Text Descripton of Review</label>
+                <label for="review-description" class="mb-2 fw-bold">Small Text Descripton of Work</label>
                 <textarea class="form-control mb-2" id="review-description" placeholder="Enter Review descripton"
                     [(ngModel)]="reviewDescription" name="review-description" required #imageInput="ngModel"></textarea>
-                <span class="error-message mb-2 alert alert-danger" *ngIf="">Review Description
+                <span class="error-message mb-2 alert alert-danger" *ngIf=""> Description
                     is
                     required
                 </span>
@@ -39,9 +39,9 @@
                 id="product-group" 
                 [(ngModel)]="reviewedProductGroup" name="reviewed-product-group" required #productGroup="ngModel"
                 >
-                    <option value="movie">Movies</option>
-                    <option value="book">Books</option>
-                    <option value="game">Games</option>
+                    <option value="education">Education</option>
+                    <option value="health">Health</option>
+                    <option value="ai">AI</option>
                 </select>
                 <span class="error-message mb-2 alert alert-danger"
                     *ngIf="productGroup.invalid && productGroup.touched">
