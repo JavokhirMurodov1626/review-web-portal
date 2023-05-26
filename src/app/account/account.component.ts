@@ -15,9 +15,9 @@ export class AccountComponent implements OnInit {
   filteredReviews: UserReview[] = [];
 
   options = [
-    { name: 'book', selected: false },
-    { name: 'movie', selected: false },
-    { name: 'game', selected: false },
+    { name: 'education', selected: false },
+    { name: 'health', selected: false },
+    { name: 'ai', selected: false },
   ];
 
   constructor(
