@@ -31,10 +31,21 @@
     </div>
 
     <div class="searched-reviews-container" *ngIf="searchedReviews && searchQuery.length">
-      <ul class="list">
-        <li class="list-item" *ngFor="let review of searchedReviews;" (click)="directToReview(review.id)">
-          {{review.title}}
-        </li>
-      </ul>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Work Title</th>
+            <th scope="col">Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let review of searchedReviews; let i=index;" (click)="directToReview(review.id)">
+            <th scope="row">{{i+1}}</th>
+            <td>{{review.title}}</td>
+            <td>{{review.similarity}}%</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </nav>

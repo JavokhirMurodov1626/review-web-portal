@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   userId!: number | undefined;
   userSub: Subscription = new Subscription();
   searchQuery: string = '';
-  searchedReviews!:{id:number,title:string}[]
+  searchedReviews!:{id:number,title:string,similarity:number}[]
 
   @ViewChild('f') searchForm!: NgForm;
 
@@ -60,3 +60,4 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([`/reviews/${id}`])
   }
 }
+ 

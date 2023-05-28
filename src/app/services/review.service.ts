@@ -31,7 +31,7 @@ export interface ReviewResponse {
   review: Review;
 }
 export interface SearchedReviewResponse {
-  reviews: {id:number,title:string}[];
+  reviews: {id:number,title:string,similarity:number}[];
 }
 
 export interface CommentData {
